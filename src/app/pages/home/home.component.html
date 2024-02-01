@@ -1,0 +1,6 @@
+<p>Hacker news!</p>
+
+<div *ngFor="let item of items$ | async">
+  <div class="item">{{ item?.title }}</div>
+  <br />
+</div>
