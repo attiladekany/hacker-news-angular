@@ -1,6 +1,34 @@
-<p>Hacker news!</p>
+<div class="wrapper">
+  <div class="content">
+    <h1>Hacker news!</h1>
 
-<div *ngFor="let item of items$ | async">
-  <div class="item">{{ item?.title }}</div>
-  <br />
+    <div class="grid-container">
+      <mat-card class="hacker-card" *ngFor="let item of items$ | async">
+        <mat-card-header>
+          <anonymous-svg
+            class="header-image"
+            mat-card-avatar
+            [fillColor]="'#e91e63'"
+            [width]="50"
+            [height]="50"
+            [borderRadius]="50"
+          ></anonymous-svg>
+
+          <mat-card-title> {{ item?.title }}</mat-card-title>
+          <mat-card-subtitle>{{ item?.by }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div>url: {{ item?.url }}</div>
+          <div>type: {{ item?.type }}</div>
+          <div>score: {{ item?.score }}</div>
+          <div>Date: {{ item.time | localeDate }}</div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button (click)="onUrlClicked(item.url)">Navigate</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>
