@@ -4,10 +4,16 @@ import { Observable, of } from 'rxjs';
 import { ItemIds } from 'src/app/resolvers/item-resolver';
 import { ItemService } from 'src/app/services/item.service.ts';
 import { Item } from 'src/typescript-angular-client-generated';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { AnonymousComponent } from 'src/app/comonents/anonymous/anonymous.component';
+import { LocaleDatePipe } from 'src/app/pipes/local-date.pipe';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  standalone: true,
+  imports: [CommonModule, MatCardModule, AnonymousComponent, LocaleDatePipe],
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
@@ -27,5 +33,11 @@ export class HomeComponent implements OnInit {
         console.log('item: ', item);
       });
     });
+  }
+
+  onUrlClicked(url: string | undefined): void {
+    if (!url) return;
+
+    window.open(url);
   }
 }

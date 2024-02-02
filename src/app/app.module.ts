@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { HackerNewsService } from 'src/typescript-angular-client-generated';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, HomeComponent],
   providers: [HackerNewsService],
   bootstrap: [AppComponent],
 })
