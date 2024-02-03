@@ -24,3 +24,15 @@ export const getItemIdsPageData: ResolveFn<number[]> = (): Observable<number[]> 
     })
   );
 };
+
+// Todo:
+// https://github.com/HackerNews/API?tab=readme-ov-file
+
+// ask
+// https://hacker-news.firebaseio.com/v0/askstories.json?print=pretty
+
+// show
+// https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty
+
+// job
+// https://hacker-news.firebaseio.com/v0/jobstories.json?print=pretty

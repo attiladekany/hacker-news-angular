@@ -1,4 +1,7 @@
+@import '../../../variables';
+
 .wrapper {
+  margin-top: $headerHeight + px;
   width: 100%;
   background-image: url('./../../background-security.svg');
   background-repeat: repeat-y;

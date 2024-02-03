@@ -10,13 +10,13 @@ import { AnonymousComponent } from 'src/app/comonents/anonymous/anonymous.compon
 import { LocaleDatePipe } from 'src/app/pipes/local-date.pipe';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+  selector: 'app-top',
+  templateUrl: './top.component.html',
   standalone: true,
   imports: [CommonModule, MatCardModule, AnonymousComponent, LocaleDatePipe],
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./top.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class TopComponent implements OnInit {
   items$: Observable<Item[]> = of([]);
 
   constructor(private _route: ActivatedRoute, private _itemService: ItemService) {}
