@@ -1,13 +1,37 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
+import { TopComponent } from './pages/top/top.component';
 import { getItemIdsPageData } from './resolvers/item-resolver';
+import { AskComponent } from './pages/ask/ask.component';
+import { ShowComponent } from './pages/show/show.component';
+import { AppComponent } from './app.component';
+import { JobComponent } from './pages/job/job.component';
 
-const routes: Routes = [
+export const routes: Routes = [
+  { path: '', redirectTo: 'news/top', pathMatch: 'full' },
   {
-    path: '',
-    resolve: { ids: getItemIdsPageData },
-    component: HomeComponent,
+    path: 'news',
+    component: AppComponent,
+    children: [
+      {
+        path: 'top',
+        resolve: { ids: getItemIdsPageData },
+        component: TopComponent,
+      },
+      {
+        path: 'ask',
+        component: AskComponent,
+      },
+      {
+        path: 'show',
+        component: ShowComponent,
+      },
+      {
+        path: 'job',
+        component: JobComponent,
+      },
+      { path: '**', redirectTo: 'top', pathMatch: 'full' },
+    ],
   },
 ];
 

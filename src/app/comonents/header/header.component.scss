@@ -1,0 +1,31 @@
+@import '../../../variables';
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.header {
+  height: $headerHeight + px;
+  z-index: 1000;
+  padding-left: 10%;
+
+  background: #555;
+  color: #f1f1f1;
+
+  .link-elements {
+    margin: 5px;
+
+    .header-link {
+      float: left;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 32px;
+
+      .active-link {
+        color: red;
+      }
+    }
+  }
+}
