@@ -1,8 +1,19 @@
 <div id="header" class="header sticky">
   <div class="link-elements">
-    <div class="header-link"><a [routerLink]="'/news/top'" routerLinkActive="active-link">top</a>|</div>
-    <div class="header-link"><a [routerLink]="'/news/ask'" routerLinkActive="active-link">ask</a>|</div>
-    <div class="header-link"><a [routerLink]="'/news/show'" routerLinkActive="active-link">show</a>|</div>
-    <div class="header-link"><a [routerLink]="'/news/job'" routerLinkActive="active-link">job</a></div>
+    <div class="header-element">
+      <a [routerLink]="'/news/top'" class="link-item" routerLinkActive="active-link"><span class="link-text">top</span></a>
+    </div>
+    <div class="header-element">
+      <a [routerLink]="'/news/ask'" class="link-item" routerLinkActive="active-link"><span class="link-text">ask</span></a>
+    </div>
+    <div class="header-element">
+      <a [routerLink]="'/news/show'" class="link-item" routerLinkActive="active-link"><span class="link-text">show</span></a>
+    </div>
+    <div class="header-element">
+      <a [routerLink]="'/news/job'" class="link-item" routerLinkActive="active-link"><span class="link-text">job</span></a>
+    </div>
+  </div>
+  <div class="avatar" [routerLink]="'/news/top'">
+    <anonymous-svg class="avatar-svg" mat-card-avatar [fillColor]="'#e91e63'" [width]="45" [height]="45" [borderRadius]="45"></anonymous-svg>
   </div>
 </div>

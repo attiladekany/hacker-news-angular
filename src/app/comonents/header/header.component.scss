@@ -1,4 +1,9 @@
 @import '../../../variables';
+$activeBackgroundColor: $pink;
+$activeTextColor: white;
+
+$linkBackgroundColor: #6a7985;
+$linkColor: #68e761;
 
 .sticky {
   position: fixed;
@@ -9,23 +14,86 @@
 .header {
   height: $headerHeight + px;
   z-index: 1000;
-  padding-left: 10%;
 
   background: #555;
-  color: #f1f1f1;
 
   .link-elements {
-    margin: 5px;
+    margin: 0 0 0 10%;
+    height: 100%;
 
-    .header-link {
+    .header-element:has(.active-link) {
+      background-color: $activeBackgroundColor;
+    }
+
+    /* vertically centered floated elements*/
+    .header-element::before {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+    }
+
+    .header-element:hover {
+      background-color: $activeBackgroundColor;
+    }
+
+    .header-element:hover .link-item {
+      color: $activeTextColor;
+    }
+
+    .header-element {
+      height: 100%;
       float: left;
       font-size: 24px;
-      font-weight: 400;
-      line-height: 32px;
+      font-weight: 500;
+      background-color: $linkBackgroundColor;
+
+      .link-item {
+        color: $linkColor;
+        text-decoration: none;
+      }
+
+      .link-text {
+        padding: 30px;
+      }
 
       .active-link {
-        color: red;
+        background-color: $activeBackgroundColor;
+        color: $activeTextColor;
       }
+    }
+  }
+
+  .avatar:hover {
+    cursor: pointer;
+    background-color: $pink;
+    transition: background-color 1s;
+  }
+
+  .avatar {
+    transition: background-color 1s;
+
+    background-color: #6a7985;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10%;
+    width: 60px;
+    height: 100%;
+    float: right;
+
+    /* Hide logo for mobile screens that are 600px or less */
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+
+    .avatar-svg {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      float: right;
     }
   }
 }
