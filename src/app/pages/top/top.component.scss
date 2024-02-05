@@ -1,21 +1,33 @@
 @import '../../../variables';
+$margin: 100;
+$linkColor: #7a7878;
 
+// Todo: set opacity background
 .wrapper {
   margin-top: $headerHeight + px;
   width: 100%;
   background-image: url('./../../background-security.svg');
   background-repeat: repeat-y;
+
+  .title {
+    text-align: right;
+    font-family: cursive;
+    font-size: xxx-large;
+    margin-top: $margin + px;
+    margin-bottom: $margin + px;
+  }
 }
 
 .content {
   width: 80%;
+  height: 100%;
   margin: auto;
 }
 
 .grid-container {
   display: grid;
-  column-gap: 50px;
-  row-gap: 50px;
+  column-gap: 75px;
+  row-gap: 75px;
 
   //Ref.:
   // https://github.com/thisiszoaib/angular-card-grid-css
@@ -25,4 +37,56 @@
 
 .header-image {
   background-size: cover;
+}
+
+.navigate-button {
+  padding: 5px;
+  border: 1px solid red;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.hacker-card {
+  .card-subtitle {
+    text-align: right;
+  }
+}
+
+.mat-mdc-card.mdc-card:hover {
+  transition: 0.5s;
+
+  background-color: #f5d09f;
+  cursor: pointer;
+  box-shadow: 8px 8px 2px 1px rgba(0, 0, 240, 0.1);
+
+  .card-title {
+    color: #2196f3;
+  }
+
+  .mat-card-content {
+    .flex-container {
+      color: black;
+    }
+  }
+}
+
+.mat-card-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  .flex-container {
+    color: white;
+  }
+
+  color: $linkColor;
+
+  .outer-link {
+    color: $linkColor;
+  }
+
+  .outer-link:visited {
+    color: $pink;
+  }
 }

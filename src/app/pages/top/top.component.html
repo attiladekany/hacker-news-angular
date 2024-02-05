@@ -1,9 +1,9 @@
 <div class="wrapper">
   <div class="content">
-    <h1>Top hacker news</h1>
+    <h1 class="title">Top hacker news</h1>
 
     <div class="grid-container">
-      <mat-card class="hacker-card" *ngFor="let item of items$ | async">
+      <mat-card class="hacker-card" *ngFor="let item of items$ | async" (click)="onUrlClicked(item.url)">
         <mat-card-header>
           <anonymous-svg
             class="header-image"
@@ -14,20 +14,24 @@
             [borderRadius]="50"
           ></anonymous-svg>
 
-          <mat-card-title> {{ item?.title }}</mat-card-title>
-          <mat-card-subtitle>{{ item?.by }}</mat-card-subtitle>
+          <mat-card-title class="card-title"> {{ item?.title }}</mat-card-title>
+          <mat-card-subtitle class="card-subtitle">{{ item?.by }}</mat-card-subtitle>
         </mat-card-header>
 
-        <mat-card-content>
-          <div>url: {{ item?.url }}</div>
-          <div>type: {{ item?.type }}</div>
-          <div>score: {{ item?.score }}</div>
-          <div>Date: {{ item.time | localeDate }}</div>
+        <mat-card-content class="mat-card-content">
+          <div class="flex-container">
+            <div class="card-text-content">
+              <div>type: {{ item?.type }}</div>
+              <div>score: {{ item?.score }}</div>
+              <div>Date: {{ item.time | localeDate }}</div>
+            </div>
+          </div>
+          <a class="outer-link" [href]="item?.url" (click)="$event.preventDefault()">
+            <span class="outer-link-text">
+              {{ item?.url }}
+            </span>
+          </a>
         </mat-card-content>
-
-        <mat-card-actions>
-          <button mat-button (click)="onUrlClicked(item.url)">Navigate</button>
-        </mat-card-actions>
       </mat-card>
     </div>
   </div>
