@@ -1,6 +1,11 @@
-# HackerNewsAngular
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d4dd4e76-7345-4f6a-99b1-3c395716e9dc/deploy-status)](https://app.netlify.com/sites/animated-otter-9d4a1b/deploys)
+
+# Hacker News Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+and redesign the hacker news page using the following API/sources:
+- https://news.ycombinator.com/news
+- https://github.com/HackerNews/API
 
 ## Development server
 
