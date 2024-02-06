@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { HackerNewsService, Item } from 'src/typescript-angular-client-generated';
-import { TopStoriesService } from './top-stories.service';
 
 @Injectable({
   providedIn: 'root',

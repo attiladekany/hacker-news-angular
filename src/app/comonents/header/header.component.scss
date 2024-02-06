@@ -3,7 +3,7 @@ $activeBackgroundColor: $pink;
 $activeTextColor: white;
 
 $linkBackgroundColor: #6a7985;
-$linkColor: #68e761;
+$linkColor: #cc98b8;
 
 .sticky {
   position: fixed;
@@ -53,8 +53,17 @@ $linkColor: #68e761;
         text-decoration: none;
       }
 
+      // Todo: add hamburger
       .link-text {
         padding: 30px;
+
+        @media screen and (max-width: 414px) {
+          padding: 21px;
+        }
+
+        @media screen and (max-width: 452px) {
+          padding: 25px;
+        }
       }
 
       .active-link {

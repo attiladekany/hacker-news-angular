@@ -1,0 +1,54 @@
+@import '../../../variables';
+$margin: 100;
+$linkColor: #7a7878;
+
+.header-image {
+  background-size: cover;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.hacker-card {
+  .card-subtitle {
+    text-align: right;
+  }
+}
+
+.mat-mdc-card.mdc-card:hover {
+  transition: 0.5s;
+
+  background-color: #f5d09f;
+  cursor: pointer;
+  box-shadow: 8px 8px 2px 1px rgba(0, 0, 240, 0.1);
+
+  .card-title {
+    color: #2196f3;
+  }
+
+  .mat-card-content {
+    .flex-container {
+      color: black;
+    }
+  }
+}
+
+.mat-card-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  .flex-container {
+    color: white;
+  }
+
+  color: $linkColor;
+
+  .outer-link {
+    color: $linkColor;
+  }
+
+  .outer-link:visited {
+    color: $pink;
+  }
+}

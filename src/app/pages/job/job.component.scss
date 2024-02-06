@@ -1,5 +1,36 @@
 @import '../../../variables';
+$margin: 100;
+$linkColor: #7a7878;
 
+// Todo: set opacity background
 .wrapper {
   margin-top: $headerHeight + px;
+  width: 100%;
+  background-image: url('./../../background-security.svg');
+  background-repeat: repeat-y;
+
+  .title {
+    text-align: right;
+    font-family: cursive;
+    font-size: xxx-large;
+    margin-top: $margin + px;
+    margin-bottom: $margin + px;
+  }
+}
+
+.content {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+}
+
+.grid-container {
+  display: grid;
+  column-gap: 75px;
+  row-gap: 75px;
+
+  //Ref.:
+  // https://github.com/thisiszoaib/angular-card-grid-css
+  // https://css-tricks.com/auto-sizing-columns-css-grid-auto-fill-vs-auto-fit/
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }

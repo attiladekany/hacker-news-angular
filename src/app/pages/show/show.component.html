@@ -1,3 +1,12 @@
 <div class="wrapper">
-  <p>Show stories</p>
+  <div class="content">
+    <h1 class="title">Show stories</h1>
+
+    <div class="grid-container">
+      <ng-container *ngFor="let item of items$ | async">
+        <!-- todo: review card height without wrapper -->
+        <app-card [item]="item"></app-card>
+      </ng-container>
+    </div>
+  </div>
 </div>

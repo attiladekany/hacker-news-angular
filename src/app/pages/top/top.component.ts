@@ -4,16 +4,14 @@ import { Observable, of } from 'rxjs';
 import { ItemIds } from 'src/app/resolvers/item-resolver';
 import { ItemService } from 'src/app/services/item.service.ts';
 import { Item } from 'src/typescript-angular-client-generated';
-import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { AnonymousComponent } from 'src/app/comonents/anonymous/anonymous.component';
-import { LocaleDatePipe } from 'src/app/pipes/local-date.pipe';
+import { CardComponent } from 'src/app/comonents/card/card.component';
 
 @Component({
   selector: 'app-top',
   templateUrl: './top.component.html',
   standalone: true,
-  imports: [CommonModule, MatCardModule, AnonymousComponent, LocaleDatePipe],
+  imports: [CommonModule, CardComponent],
   styleUrls: ['./top.component.scss'],
 })
 export class TopComponent implements OnInit {
@@ -33,13 +31,5 @@ export class TopComponent implements OnInit {
         console.log('item: ', item);
       });
     });
-  }
-
-  onUrlClicked(url: string | undefined): void {
-    if (!url) return;
-
-    if (!confirm(`Are you sure to open this page?\n${url}`)) return;
-
-    window.open(url);
   }
 }
