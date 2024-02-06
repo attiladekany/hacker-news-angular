@@ -9,22 +9,24 @@
       [borderRadius]="50"
     ></anonymous-svg>
 
-    <mat-card-title class="card-title"> {{ item?.title }}</mat-card-title>
-    <mat-card-subtitle class="card-subtitle">{{ item?.by }}</mat-card-subtitle>
+    <mat-card-title class="card-title" *ngIf="item?.title">{{ item.title }}</mat-card-title>
+    <mat-card-subtitle class="card-subtitle" *ngIf="item?.by">{{ item.by }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content class="mat-card-content">
     <div class="flex-container">
       <div class="card-text-content">
-        <div>type: {{ item?.type }}</div>
-        <div>score: {{ item?.score }}</div>
-        <div>Date: {{ item.time | localeDate }}</div>
+        <div *ngIf="item?.type">type: {{ item.type }}</div>
+        <div *ngIf="item?.score">score: {{ item.score }}</div>
+        <div *ngIf="item?.time ">Date: {{ item.time | localeDate }}</div>
       </div>
     </div>
-    <a class="outer-link" [href]="item?.url" (click)="$event.preventDefault()">
-      <span class="outer-link-text">
-        {{ item?.url }}
-      </span>
-    </a>
+    <ng-container *ngIf="item?.url">
+      <a class="outer-link" [href]="item.url" (click)="$event.preventDefault()">
+        <span class="outer-link-text">
+          {{ item.url }}
+        </span>
+      </a>
+    </ng-container>
   </mat-card-content>
 </mat-card>
