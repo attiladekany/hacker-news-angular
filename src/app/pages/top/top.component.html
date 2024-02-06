@@ -3,36 +3,10 @@
     <h1 class="title">Top hacker news</h1>
 
     <div class="grid-container">
-      <mat-card class="hacker-card" *ngFor="let item of items$ | async" (click)="onUrlClicked(item.url)">
-        <mat-card-header>
-          <anonymous-svg
-            class="header-image"
-            mat-card-avatar
-            [fillColor]="'#e91e63'"
-            [width]="50"
-            [height]="50"
-            [borderRadius]="50"
-          ></anonymous-svg>
-
-          <mat-card-title class="card-title"> {{ item?.title }}</mat-card-title>
-          <mat-card-subtitle class="card-subtitle">{{ item?.by }}</mat-card-subtitle>
-        </mat-card-header>
-
-        <mat-card-content class="mat-card-content">
-          <div class="flex-container">
-            <div class="card-text-content">
-              <div>type: {{ item?.type }}</div>
-              <div>score: {{ item?.score }}</div>
-              <div>Date: {{ item.time | localeDate }}</div>
-            </div>
-          </div>
-          <a class="outer-link" [href]="item?.url" (click)="$event.preventDefault()">
-            <span class="outer-link-text">
-              {{ item?.url }}
-            </span>
-          </a>
-        </mat-card-content>
-      </mat-card>
+      <ng-container *ngFor="let item of items$ | async">
+        <!-- todo: review card height without wrapper -->
+        <app-card [item]="item"></app-card>
+      </ng-container>
     </div>
   </div>
 </div>
