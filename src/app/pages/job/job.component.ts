@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { AnonymousComponent } from 'src/app/comonents/anonymous/anonymous.component';
-import { LocaleDatePipe } from 'src/app/pipes/local-date.pipe';
+import { CardComponent } from 'src/app/comonents/card/card.component';
 import { ItemIds } from 'src/app/resolvers/item-resolver';
 import { ItemService } from 'src/app/services/item.service.ts';
 import { Item } from 'src/typescript-angular-client-generated';
@@ -13,7 +11,7 @@ import { Item } from 'src/typescript-angular-client-generated';
   selector: 'app-job',
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.scss'],
-  imports: [CommonModule, MatCardModule, AnonymousComponent, LocaleDatePipe],
+  imports: [CommonModule, CardComponent],
   standalone: true,
 })
 export class JobComponent implements OnInit {
@@ -33,13 +31,5 @@ export class JobComponent implements OnInit {
         console.log('item: ', item);
       });
     });
-  }
-
-  onUrlClicked(url: string | undefined): void {
-    if (!url) return;
-
-    if (!confirm(`Are you sure to open this page?\n${url}`)) return;
-
-    window.open(url);
   }
 }
