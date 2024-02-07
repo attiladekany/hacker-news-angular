@@ -3,10 +3,7 @@ import { Observable, concatMap, from, of, tap } from 'rxjs';
 import { inject } from '@angular/core';
 import { CacheStoriesService } from '../services/cache-stories.service';
 import { URLPaths } from '../others/constants';
-
-export interface ItemIds {
-  ids: number[];
-}
+import { getItems$ } from './helpers';
 
 export const getJobIdsPageData: ResolveFn<number[]> = (): Observable<number[]> => {
   const _cacheStoriesService = inject(CacheStoriesService);
@@ -17,19 +14,7 @@ export const getJobIdsPageData: ResolveFn<number[]> = (): Observable<number[]> =
     concatMap((ids) => {
       if (ids?.length) return of(ids);
 
-      return from(
-        fetch(uri, {
-          headers: {
-            // Servers use this header to decide on response body format.
-            // "application/json" implies that we accept the data in JSON format.
-            accept: 'text/html,application/json',
-          },
-        }).then((res) => {
-          if (!res.ok) throw new Error(res.statusText);
-
-          return res.json() as Promise<number[]>;
-        })
-      );
+      return from(getItems$(uri));
     }),
     tap((ids) => {
       _cacheStoriesService.setJobStories(ids);
