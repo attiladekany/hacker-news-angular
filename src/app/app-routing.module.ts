@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TopComponent } from './pages/top/top.component';
+import { BasePageComponent } from './pages/base-page/base-page.component';
 import { getItemIdsPageData } from './resolvers/item-resolver';
-import { AskComponent } from './pages/ask/ask.component';
-import { ShowComponent } from './pages/show/show.component';
 import { AppComponent } from './app.component';
-import { JobComponent } from './pages/job/job.component';
 import { getAskIdsPageData } from './resolvers/ask-resolver';
 import { getShowIdsPageData } from './resolvers/show-resolver';
 import { getJobIdsPageData } from './resolvers/job-resolver';
@@ -18,22 +15,26 @@ export const routes: Routes = [
     children: [
       {
         path: 'top',
+        title: 'Top hacker news',
+        component: BasePageComponent,
         resolve: { ids: getItemIdsPageData },
-        component: TopComponent,
       },
       {
         path: 'ask',
-        component: AskComponent,
+        title: 'Ask stories',
+        component: BasePageComponent,
         resolve: { ids: getAskIdsPageData },
       },
       {
         path: 'show',
-        component: ShowComponent,
+        title: 'Show stories',
+        component: BasePageComponent,
         resolve: { ids: getShowIdsPageData },
       },
       {
         path: 'job',
-        component: JobComponent,
+        title: 'Job stories',
+        component: BasePageComponent,
         resolve: { ids: getJobIdsPageData },
       },
       { path: '**', redirectTo: 'top', pathMatch: 'full' },
