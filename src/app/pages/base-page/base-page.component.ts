@@ -4,10 +4,10 @@ import { CardComponent } from 'src/app/comonents/card/card.component';
 import { AbstractBasePage } from '../abstract-base-page.directive';
 
 @Component({
-  selector: 'app-top',
-  templateUrl: './top.component.html',
   standalone: true,
+  selector: 'app-base-page',
+  templateUrl: './base-page.component.html',
   imports: [CommonModule, CardComponent],
-  styleUrls: ['./top.component.scss'],
+  styleUrls: ['./base-page.component.scss'],
 })
-export class TopComponent extends AbstractBasePage {}
+export class BasePageComponent extends AbstractBasePage {}
