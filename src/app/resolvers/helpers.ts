@@ -1,4 +1,4 @@
-export const getItems$ = (uri: string): Promise<number[]> =>
+export const getItemIds$ = (uri: string): Promise<number[]> =>
   fetch(uri, {
     headers: {
       // Servers use this header to decide on response body format.
