@@ -4,7 +4,7 @@ import { HackerNewsService } from 'src/typescript-angular-client-generated';
 import { inject } from '@angular/core';
 import { CacheStoriesService } from '../services/cache-stories.service';
 
-export const getItemIdsPageData: ResolveFn<number[]> = (): Observable<number[]> => {
+export const resolveTopItemIds$: ResolveFn<number[]> = (): Observable<number[]> => {
   const _hackerNewsService = inject(HackerNewsService);
   const _cacheStoriesService = inject(CacheStoriesService);
 

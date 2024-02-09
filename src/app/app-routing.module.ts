@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BasePageComponent } from './pages/base-page/base-page.component';
-import { getItemIdsPageData } from './resolvers/item-resolver';
 import { AppComponent } from './app.component';
-import { getAskIdsPageData } from './resolvers/ask-resolver';
-import { getShowIdsPageData } from './resolvers/show-resolver';
-import { getJobIdsPageData } from './resolvers/job-resolver';
+import { AskStoriesService } from './services/ask-stories.service';
+import { URLPaths } from './others/constants';
+import { ShowStoriesService } from './services/show-stories.service';
+import { JobStoriesService } from './services/job-stories.service';
+import { resolveTopItemIds$ } from './resolvers/top-id.resolver';
+import { getIds$ } from './resolvers/id.resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'news/top', pathMatch: 'full' },
@@ -17,25 +19,28 @@ export const routes: Routes = [
         path: 'top',
         title: 'Top hacker news',
         component: BasePageComponent,
-        resolve: { ids: getItemIdsPageData },
+        resolve: { ids: resolveTopItemIds$ },
       },
       {
         path: 'ask',
         title: 'Ask stories',
         component: BasePageComponent,
-        resolve: { ids: getAskIdsPageData },
+        resolve: { ids: getIds$ },
+        data: { service: AskStoriesService, uri: URLPaths.ASK_STORIES },
       },
       {
         path: 'show',
         title: 'Show stories',
         component: BasePageComponent,
-        resolve: { ids: getShowIdsPageData },
+        resolve: { ids: getIds$ },
+        data: { service: ShowStoriesService, uri: URLPaths.SHOW_STORIES },
       },
       {
         path: 'job',
         title: 'Job stories',
         component: BasePageComponent,
-        resolve: { ids: getJobIdsPageData },
+        resolve: { ids: getIds$ },
+        data: { service: JobStoriesService, uri: URLPaths.JOB_STORIES },
       },
       { path: '**', redirectTo: 'top', pathMatch: 'full' },
     ],
