@@ -3,10 +3,10 @@
     <h1 class="title">{{ title }}</h1>
 
     <div class="grid-container">
-      <ng-container *ngFor="let item of items$ | async">
+      @for (item of items$ | async; track item.id) {
         <!-- todo: review card height without wrapper -->
         <app-card [item]="item"></app-card>
-      </ng-container>
+      }
     </div>
   </div>
 </div>
