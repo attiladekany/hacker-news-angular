@@ -1,19 +1,24 @@
 import { Directive, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { ItemService } from '../services/item.service.ts';
 import { Item } from 'src/typescript-angular-client-generated/index.js';
 import { ItemIds } from '../models/item-ids.model.js';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Directive()
 export abstract class AbstractBasePage implements OnInit {
   public readonly PAGE_SIZE = 15;
   items$: Observable<Item[]> = of([]);
+  small$: Observable<boolean> = of(false);
   title = '';
 
-  constructor(private _route: ActivatedRoute, private _itemService: ItemService) {}
+  constructor(private _route: ActivatedRoute, private _itemService: ItemService, private responsive: BreakpointObserver) {}
 
   ngOnInit(): void {
+    this.small$ = this.responsive
+      .observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(map((result) => (result.matches)))
+
     const { ids } = this._route.snapshot.data as ItemIds;
     this.title = this._route.snapshot.routeConfig?.title as string;
 
@@ -22,7 +27,7 @@ export abstract class AbstractBasePage implements OnInit {
 
     this._itemService.getItemsByIds$(itemIds).subscribe((items) => {
       items.forEach((item) => {
-        console.log('item: ', item);
+        // console.log('item: ', item);
       });
     });
   }
