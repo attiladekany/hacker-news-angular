@@ -1,12 +1,19 @@
+<app-layout
+  [title]="title"
+  [entities]="(entities$ | async) || []"
+  [isLoading]="false"
+  (nearEnd)="onNearEndScroll()"
+></app-layout>
+
+<!--
 <div class="wrapper">
   <div class="content">
     <h1 class="title">{{ title }}</h1>
 
     <div class="grid-container">
       @for (item of items$ | async; track item.id) {
-        <!-- todo: review card height without wrapper -->
         <app-card [item]="item"></app-card>
       }
     </div>
   </div>
-</div>
+</div> -->

@@ -2,73 +2,44 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from 'src/app/comonents/card/card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
-import { BehaviorSubject, Observable, defer, finalize, map, of, switchMap, take } from 'rxjs';
-import { Item } from 'src/typescript-angular-client-generated';
+import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
+import { firstValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { PagedItemResult } from 'src/app/models/paged-result.model';
-import { PagedItemsService } from 'src/app/services/paged-items.service';
-import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
 import { ScrollNearEndDirective } from 'src/app/directives/scroll-near-end.directive';
+import { ComponentStore } from '@ngrx/component-store';
+import { ItemsStore } from './+state/item.store';
+import { LayoutComponent } from '../layout-components/layout/layout.component';
 
 @Component({
   standalone: true,
   selector: 'app-date-page',
   templateUrl: './date-page.component.html',
-  imports: [CommonModule, CardComponent, MatProgressSpinnerModule, LayoutModule, ScrollNearEndDirective],
   styleUrls: ['./date-page.component.scss'],
+  imports: [LayoutComponent, CommonModule, CardComponent, MatProgressSpinnerModule, LayoutModule, ScrollNearEndDirective],
+  providers: [ItemsStore, ComponentStore],
 })
 export class DatePageComponent implements OnInit {
-  pageSize = DEFAULT_PAGE_SIZE;
-  page$ = new BehaviorSubject(1);
-  items$: Observable<Item[]> = of([]);
-  small$: Observable<boolean> = of(false);
   title = '';
-  date = '';
-  // pagedItems$: Observable<PagedItemResult> = of({} as PagedItemResult); // or null?
-  isLoading = true;
-  entities: Item[] = [];
 
-  constructor(private _route: ActivatedRoute, private _pagedItemsService: PagedItemsService, private responsive: BreakpointObserver) {}
+  readonly entities$ = this.store.select((state) => state.entities);
+  readonly isLoading$ = this.store.select((state) => state.isLoading);
+  readonly page$ = this.store.select((state) => state.page);
+  readonly pageAndIsLoading$ = this.store.select((state) => ({ page: state.page, isLoading: state.isLoading }));
+
+  constructor(private readonly store: ItemsStore, private _route: ActivatedRoute, private responsive: BreakpointObserver) {}
 
   ngOnInit(): void {
-    this.date = this._route.snapshot.params['date'];
-    if (!this.date) throw Error('Date must be provided');
+    // Todo: Todo: implement datepicker & update date if necessary
 
-    this.small$ = this.responsive.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(map((result) => result.matches));
-
-    this.loadPagedItems();
+    this.store.loadInitialPageData$();
   }
 
-  // loadPagedItems$(): Observable<PagedItemResult> {
-    loadPagedItems(): void {
-     defer(() => {
-      this.isLoading = true;
-      console.log('defer called');
-      return this.page$.pipe(
-        switchMap((page) => {
-          return this._pagedItemsService.getPagedItems$(this.date, page, this.pageSize).pipe(
-            map((pagedItemResult: PagedItemResult) => {
-              this.entities = [...this.entities, ...pagedItemResult.entities];
-            })
-          );
-        })
-      );
-    }).pipe(
-      take(1),
-      finalize(() => {
-        this.isLoading = false;
-        console.log('finalize called');
-      })
-    ).subscribe();
-  }
+  async onNearEndScroll(): Promise<void> {
+    const { page, isLoading } = await firstValueFrom(this.pageAndIsLoading$);
+    if (isLoading) return;
+    this.store.patchState({ isLoading: true });
+    this.store.getNextElements$(page + 1);
 
-  onNearEndScroll(): void {
-    if (this.isLoading) return;
-
-    this.page$.next(this.page$.value + 1);
-    this.loadPagedItems();
-
-    console.log('onNearEndScroll - page: ', this.page$.value);
+    console.log('onNearEndScroll - page: ', page);
   }
 }

@@ -17,11 +17,6 @@ export const routes: Routes = [
     component: AppComponent,
     children: [
       {
-        path: `:${DATE_PARAM}`,
-        title: 'Items by date',
-        component: DatePageComponent,
-      },
-      {
         path: 'top',
         title: 'Top hacker news',
         component: BasePageComponent,
@@ -47,6 +42,11 @@ export const routes: Routes = [
         component: BasePageComponent,
         resolve: { ids: getIds$ },
         data: { service: JobStoriesService, uri: URLPaths.JOB_STORIES },
+      },
+      {
+        path: `:${DATE_PARAM}`,
+        title: 'Items by date',
+        component: DatePageComponent,
       },
       { path: '**', redirectTo: 'top', pathMatch: 'full' },
     ],

@@ -9,21 +9,18 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Directive()
 export abstract class AbstractBasePage implements OnInit {
   public readonly PAGE_SIZE = 15;
-  items$: Observable<Item[]> = of([]);
-  small$: Observable<boolean> = of(false);
+  entities$: Observable<Item[]> = of([]);
   title = '';
 
   constructor(private _route: ActivatedRoute, private _itemService: ItemService, private responsive: BreakpointObserver) {}
 
   ngOnInit(): void {
-    this.small$ = this.responsive
-      .observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(map((result) => (result.matches)))
 
     const { ids } = this._route.snapshot.data as ItemIds;
     this.title = this._route.snapshot.routeConfig?.title as string;
 
     let itemIds = ids.splice(0, this.PAGE_SIZE);
-    this.items$ = this._itemService.getItemsByIds$(itemIds);
+    this.entities$ = this._itemService.getItemsByIds$(itemIds);
 
     this._itemService.getItemsByIds$(itemIds).subscribe((items) => {
       items.forEach((item) => {
