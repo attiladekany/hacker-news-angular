@@ -24,7 +24,7 @@ export class DatePageComponent implements OnInit {
   readonly entities$ = this.store.select((state) => state.entities);
   readonly isLoading$ = this.store.select((state) => state.isLoading);
   readonly page$ = this.store.select((state) => state.page);
-  readonly pageAndIsLoading$ = this.store.select((state) => ({ page: state.page, isLoading: state.isLoading }));
+  readonly state$ = this.store.select((state) => state);
 
   constructor(private readonly store: ItemsStore, private _route: ActivatedRoute, private responsive: BreakpointObserver) {}
 
@@ -35,8 +35,8 @@ export class DatePageComponent implements OnInit {
   }
 
   async onNearEndScroll(): Promise<void> {
-    const { page, isLoading } = await firstValueFrom(this.pageAndIsLoading$);
-    if (isLoading) return;
+    const { page, isLoading, hasMore} = await firstValueFrom(this.state$);
+    if (isLoading || !hasMore) return;
     this.store.patchState({ isLoading: true });
     this.store.getNextElements$(page + 1);
 
