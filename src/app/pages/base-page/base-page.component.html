@@ -1,19 +1,6 @@
 <app-layout
   [title]="title"
   [entities]="(entities$ | async) || []"
-  [isLoading]="false"
+  [isLoading]="(isLoading$ | async) === true"
   (nearEnd)="onNearEndScroll()"
 ></app-layout>
-
-<!--
-<div class="wrapper">
-  <div class="content">
-    <h1 class="title">{{ title }}</h1>
-
-    <div class="grid-container">
-      @for (item of items$ | async; track item.id) {
-        <app-card [item]="item"></app-card>
-      }
-    </div>
-  </div>
-</div> -->
