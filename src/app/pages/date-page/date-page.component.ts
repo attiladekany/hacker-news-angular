@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from 'src/app/comonents/card/card.component';
+import { CardComponent } from 'src/app/components/card/card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { firstValueFrom } from 'rxjs';
