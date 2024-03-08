@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from 'src/app/comonents/card/card.component';
+import { CardComponent } from 'src/app/components/card/card.component';
 import { AbstractBasePage } from './abstract-base-page.directive';
 import { LayoutComponent } from '../layout-components/layout/layout.component';
 import { ComponentStore } from '@ngrx/component-store';
