@@ -6,6 +6,8 @@ import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
 import { PagedItemsService } from 'src/app/services/paged-items.service';
 import { Item } from 'src/typescript-angular-client-generated';
 
+export const getInitialState = (date: string) => ({...INITIAL_STATE, date })
+
 const INITIAL_STATE: ItemsState<Item> = {
   date: new Date().toISOString().slice(0, 10),
   page: 1,
