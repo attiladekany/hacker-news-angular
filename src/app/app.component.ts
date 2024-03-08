@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from './comonents/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -11,4 +11,5 @@ import { RouterModule } from '@angular/router';
 })
 export class AppComponent {
   title = 'hacker-news-angular';
+  // Todo: https://danielk.tech/home/angular-pwa
 }

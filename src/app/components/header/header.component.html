@@ -1,8 +1,8 @@
 <div id="header" class="header sticky">
   <div class="link-elements">
     <div class="header-element">
-      <!-- Todo: implement datepicker -->
-      <a [routerLink]="'/news/2020-01-02'" class="link-item" routerLinkActive="active-link"><span class="link-text">2020-01-02</span></a>
+      <app-date-picker [date]="date" (dateChanged)="onDateChanged($event)"></app-date-picker>
+      <a [routerLink]="'/news/'+ date" class="link-item" routerLinkActive="active-link"><span class="link-text">{{ date }}</span></a>
     </div>
     <div class="header-element">
       <a [routerLink]="'/news/top'" class="link-item" routerLinkActive="active-link"><span class="link-text">top</span></a>
