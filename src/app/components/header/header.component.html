@@ -1,6 +1,10 @@
 <div id="header" class="header sticky">
   <div class="link-elements">
     <div class="header-element">
+      <app-date-picker [date]="date" (dateChanged)="onDateChanged($event)"></app-date-picker>
+      <a [routerLink]="'/news/'+ date" class="link-item" routerLinkActive="active-link"><span class="link-text">{{ date }}</span></a>
+    </div>
+    <div class="header-element">
       <a [routerLink]="'/news/top'" class="link-item" routerLinkActive="active-link"><span class="link-text">top</span></a>
     </div>
     <div class="header-element">

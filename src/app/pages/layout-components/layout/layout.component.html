@@ -1,0 +1,19 @@
+<div class="wrapper" appScrollNearEnd (nearEnd)="nearEnd.next()">
+  <div class="content">
+    <h1 class="title">{{ title }}</h1>
+    @if (entities.length > 0) {
+    <div class="grid-container">
+      @for (item of entities; track item.id) {
+      <!-- todo: review card height without wrapper -->
+      <app-card [item]="item"></app-card>
+      }
+    </div>
+    } @if (isLoading) {
+    <mat-spinner
+      diameter="{{ (small$ | async) === false ? 100 : 50 }}"
+      strokeWidth="{{ (small$ | async) === false ? 10 : 5 }}"
+      class="center"
+    ></mat-spinner>
+    }
+  </div>
+</div>

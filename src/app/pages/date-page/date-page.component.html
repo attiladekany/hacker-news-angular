@@ -1,5 +1,5 @@
 <app-layout
-  [title]="title"
+  [title]="'News by date'"
   [entities]="(entities$ | async) || []"
   [isLoading]="(isLoading$ | async) === true"
   (nearEnd)="onNearEndScroll()"
