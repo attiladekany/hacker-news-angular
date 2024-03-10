@@ -77,9 +77,4 @@ export class ItemsStore extends ComponentStore<ItemsState<Item>> {
       entities: [...state.entities, ...entities],
     };
   });
-
-  //not used
-  selectItem(id: number) {
-    return this.select((state) => state.entities.find((e) => e.id === id));
-  }
 }

@@ -36,9 +36,5 @@ export class BasePageComponent extends AbstractBasePage {
     this.store.patchState({ isLoading: true });
 
     this.store.getNextElements$(page + 1);
-
-    console.log('onNearEndScroll - page: ', page + 1);
-    console.log('onNearEndScroll - hasmore:', hasMore);
-
   }
 }

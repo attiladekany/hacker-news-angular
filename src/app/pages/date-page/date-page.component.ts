@@ -48,17 +48,16 @@ export class DatePageComponent implements OnInit, OnDestroy {
     this.store.loadInitialPageData$();
   }
 
-  async onNearEndScroll(): Promise<void> {
-    const { page, isLoading, hasMore } = await firstValueFrom(this.state$);
-    if (isLoading || !hasMore) return;
-    this.store.patchState({ isLoading: true });
-    this.store.getNextElements$(page + 1);
-
-    console.log('onNearEndScroll - page: ', page);
-  }
-
   ngOnDestroy(): void {
     this._unsubscriber.next();
     this._unsubscriber.complete();
+  }
+
+  async onNearEndScroll(): Promise<void> {
+    const { page, isLoading, hasMore } = await firstValueFrom(this.state$);
+    if (isLoading || !hasMore) return;
+
+    this.store.patchState({ isLoading: true });
+    this.store.getNextElements$(page + 1);
   }
 }

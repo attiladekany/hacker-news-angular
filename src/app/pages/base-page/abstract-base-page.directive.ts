@@ -16,8 +16,6 @@ export abstract class AbstractBasePage implements OnInit {
     this.title = this._route.snapshot.routeConfig?.title as string;
     const { ids } = this._route.snapshot.data as ItemIds;
     this.store.patchState({ ids });
-    console.log('length:', ids.length);
-
 
     this.store.loadInitialPageData$();
   }
