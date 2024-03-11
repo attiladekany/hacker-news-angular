@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,6 +25,7 @@ import { Moment } from 'moment';
     },
   })],
   imports: [MatMomentDateModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
+  encapsulation: ViewEncapsulation.None
 })
 export class DatePickerComponent implements OnInit {
   @Input() date: string | Date = new Date();

@@ -17,62 +17,6 @@ $linkColor: #cc98b8;
 
   background: #555;
 
-  .link-elements {
-    margin: 0 0 0 10%;
-    height: 100%;
-
-    .header-element:has(.active-link) {
-      background-color: $activeBackgroundColor;
-    }
-
-    /* vertically centered floated elements*/
-    .header-element::before {
-      content: '';
-      display: inline-block;
-      vertical-align: middle;
-      height: 100%;
-    }
-
-    .header-element:hover {
-      background-color: $activeBackgroundColor;
-    }
-
-    .header-element:hover .link-item {
-      color: $activeTextColor;
-    }
-
-    .header-element {
-      height: 100%;
-      float: left;
-      font-size: 24px;
-      font-weight: 500;
-      background-color: $linkBackgroundColor;
-
-      .link-item {
-        color: $linkColor;
-        text-decoration: none;
-      }
-
-      // Todo: add hamburger
-      .link-text {
-        padding: 30px;
-
-        @media screen and (max-width: 414px) {
-          padding: 21px;
-        }
-
-        @media screen and (max-width: 452px) {
-          padding: 25px;
-        }
-      }
-
-      .active-link {
-        background-color: $activeBackgroundColor;
-        color: $activeTextColor;
-      }
-    }
-  }
-
   .avatar:hover {
     cursor: pointer;
     background-color: $pink;
