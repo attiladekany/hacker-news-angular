@@ -8,7 +8,7 @@
       <app-card [item]="item"></app-card>
       }
     </div>
-    } @if (true) {
+    } @if (isLoading) {
       <div class="loading-wrapper">
         <mat-spinner class="loading-spinner"
           diameter="{{ (small$ | async) === false ? 100 : 50 }}"
