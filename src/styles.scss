@@ -1,4 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+// ======== mat date picker overrides ========
+.small-date-picker {
+  top: 8px;
+  position: absolute;
+
+  .mat-mdc-form-field {
+    height: 100px;
+  }
+  .mat-mdc-text-field-wrapper {
+    width: 115px;
+    .mat-mdc-form-field-flex {
+      .mat-mdc-form-field-infix {
+        width: 100px;
+      }
+      color: aqua;
+      display: unset !important;
+    }
+
+    .mat-mdc-form-field-icon-suffix {
+      left: 17px;
+      margin-top: -18px;
+
+      padding: 0;
+    }
+  }
+}

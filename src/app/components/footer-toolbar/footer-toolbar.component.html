@@ -1,0 +1,26 @@
+<mat-toolbar class="toolbar-nav">
+  <button class="nav-element" mat-flat-button routerLink="/news/top" routerLinkActive="active-link" matRipple>
+    <mat-icon class="material-icons color_blue">
+      favorite</mat-icon>
+    <span class="nav-element-text">Top Artists</span>
+  </button>
+
+  <button class="nav-element" mat-flat-button routerLink="/news/ask" routerLinkActive="active-link" matRipple>
+    <mat-icon class="material-icons color_blue">help
+    </mat-icon>
+    <span class="nav-element-text">Ask stories</span>
+  </button>
+
+  <app-date-picker class="date-picker" [ngClass]="{'small-date-picker': (small$ | async) === true}" [date]="date" (dateChanged)="onDateChanged($event)"></app-date-picker>
+
+  <button class="nav-element" mat-flat-button routerLink="/news/show" routerLinkActive="active-link" matRipple>
+    <mat-icon class="material-icons color_blue">assignment_turned_in
+    </mat-icon>
+    <span class="nav-element-text">Show stories</span>
+  </button>
+
+  <button class="nav-element" mat-flat-button routerLink="/news/work" routerLinkActive="active-link" matRipple>
+    <mat-icon class="material-icons color_blue">work</mat-icon>
+    <span class="nav-element-text">Job stories</span>
+  </button>
+</mat-toolbar>

@@ -8,12 +8,14 @@
       <app-card [item]="item"></app-card>
       }
     </div>
-    } @if (isLoading) {
-    <mat-spinner
-      diameter="{{ (small$ | async) === false ? 100 : 50 }}"
-      strokeWidth="{{ (small$ | async) === false ? 10 : 5 }}"
-      class="center"
-    ></mat-spinner>
+    } @if (true) {
+      <div class="loading-wrapper">
+        <mat-spinner class="loading-spinner"
+          diameter="{{ (small$ | async) === false ? 100 : 50 }}"
+          strokeWidth="{{ (small$ | async) === false ? 10 : 5 }}"
+          class="center"
+        ></mat-spinner>
+      </div>
     }
   </div>
 </div>
