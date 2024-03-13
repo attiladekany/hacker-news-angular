@@ -4,7 +4,7 @@ $linkColor: #7a7878;
 
 // Todo: set opacity background
 .wrapper {
-  margin-top: $headerHeight + px;
+  padding-top: 100 + px;
   width: 100%;
   background-image: url('./../../../background-security.svg');
   background-repeat: repeat-y;

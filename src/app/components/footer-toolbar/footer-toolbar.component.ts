@@ -4,10 +4,10 @@ import { AnonymousComponent } from '../anonymous/anonymous.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, map, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
+import { Store } from '@ngrx/store';
+import { selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
   standalone: true,
@@ -17,13 +17,9 @@ import { MatRippleModule } from '@angular/material/core';
   imports: [CommonModule, RouterModule, AnonymousComponent, DatePickerComponent, MatToolbarModule, MatIconModule, MatRippleModule],
 })
 export class FooterToolbarComponent {
-  constructor(public router: Router, private responsive: BreakpointObserver) {}
+  constructor(public router: Router, private store: Store) {}
   date: string = new Date().toISOString().slice(0, 10);
-  small$: Observable<boolean> = of(false);
-
-  ngOnInit(): void {
-    this.small$ = this.responsive.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(map((result) => result.matches));
-  }
+  small$ = this.store.select(selectIsMobile$);
 
   onDateChanged(date: string): void {
     this.date = date;

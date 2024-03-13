@@ -1,6 +1,8 @@
+<app-header [title]="title"></app-header>
+
 <div class="wrapper" appScrollNearEnd (nearEnd)="nearEnd.next()">
   <div class="content">
-    <h1 class="title">{{ title }}</h1>
+    <!-- <h1 class="title">{{ title }}</h1> -->
     @if (entities.length > 0) {
     <div class="grid-container">
       @for (item of entities; track item.id) {
