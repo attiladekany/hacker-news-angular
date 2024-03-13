@@ -12,20 +12,22 @@ import { Moment } from 'moment';
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.scss',
   standalone: true,
-  providers: [provideNativeDateAdapter(),
+  providers: [
+    provideNativeDateAdapter(),
     provideMomentDateAdapter({
-    parse: {
-      dateInput: ['l', 'LL'],
-    },
-    display: {
-      dateInput: 'YYYY-MM-DD',
-      monthYearLabel: 'MMM YYYY',
-      dateA11yLabel: 'LL',
-      monthYearA11yLabel: 'MMMM YYYY',
-    },
-  })],
+      parse: {
+        dateInput: ['l', 'LL'],
+      },
+      display: {
+        dateInput: 'YYYY-MM-DD',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+      },
+    }),
+  ],
   imports: [MatMomentDateModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class DatePickerComponent implements OnInit {
   @Input() date: string | Date = new Date();
@@ -38,10 +40,11 @@ export class DatePickerComponent implements OnInit {
     const date = typeof this.date === 'string' ? new Date(this.date) : new Date();
     this.startDate = new Date(date);
     this.datePicker = new FormControl(date);
+    this.datePicker.disable();
   }
 
   onDateChange(value: Moment): void {
-    const date = value.format('YYYY-MM-DD')
+    const date = value.format('YYYY-MM-DD');
 
     this.dateChanged.emit(date);
 

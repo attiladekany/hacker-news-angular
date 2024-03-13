@@ -1,3 +1,5 @@
+@import './variables';
+
 /* You can add global styles to this file, and also import other style files */
 
 html,
@@ -9,9 +11,9 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+
 // ======== mat date picker overrides ========
-.small-date-picker {
-  top: 8px;
+.hacker-date-picker {
   position: absolute;
 
   .mat-mdc-form-field {
@@ -21,7 +23,15 @@ body {
     width: 115px;
     .mat-mdc-form-field-flex {
       .mat-mdc-form-field-infix {
+
+        // Todo: refine active & hover effects
+        // .mat-datepicker-input {
+        //   color: $pink;
+        // }
+
+        padding: 0;
         width: 100px;
+        min-height: 33px;
       }
       color: aqua;
       display: unset !important;

@@ -12,6 +12,18 @@ $linkColor: #cc98b8;
 }
 
 .header {
+  .bebas-neue-regular {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .title {
+    color: $pink;
+    font-size: 50px;
+    text-align: center;
+    margin-top: 15px;
+  }
+
   height: $headerHeight + px;
   z-index: 1000;
 
