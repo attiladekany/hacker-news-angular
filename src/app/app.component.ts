@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GlobalActions } from './+state/global.actions';
 import { selectIsMobile$ } from './+state/global.selector';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -20,15 +21,14 @@ import { selectIsMobile$ } from './+state/global.selector';
 export class AppComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
 
-  constructor(private responsive: BreakpointObserver, private store: Store) {}
+  constructor(private responsive: BreakpointObserver, private swUpdate: SwUpdate, private store: Store) {}
 
-  small$ = this.store.select(selectIsMobile$);
-
-  onSetIsMobile(isMobile: boolean) {
-    this.store.dispatch(GlobalActions.setIsMobileView({ isMobile }));
+  ngOnInit(): void {
+    this._subscribeToVersionUpdates();
+    this._setIsMobileListener();
   }
 
-  async ngOnInit(): Promise<void> {
+  private _setIsMobileListener(): void {
     this.responsive
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .pipe(
@@ -39,10 +39,23 @@ export class AppComponent implements OnInit {
         const stored = await firstValueFrom(this.store.select(selectIsMobile$));
 
         if (isMobile === stored) return;
-        this.onSetIsMobile(isMobile);
+        this._setIsMobile(isMobile);
       });
   }
 
-  title = 'hacker-news-angular';
-  // Todo: https://danielk.tech/home/angular-pwa
+  private _subscribeToVersionUpdates(): void {
+    if (!this.swUpdate.isEnabled) return;
+
+    this.swUpdate.versionUpdates.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((event) => {
+      if (event.type !== 'VERSION_READY') return;
+
+      if (confirm("You're using an old version of the control panel. Want to update?")) {
+        window.location.reload();
+      }
+    });
+  }
+
+  private _setIsMobile(isMobile: boolean): void {
+    this.store.dispatch(GlobalActions.setIsMobileView({ isMobile }));
+  }
 }

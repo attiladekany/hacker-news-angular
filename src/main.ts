@@ -10,6 +10,7 @@ import { provideStore } from '@ngrx/store';
 import { GLOBAL_FEATURE_KEY } from './app/+state/global.selector';
 import { globalReducer } from './app/+state/global.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideServiceWorker } from '@angular/service-worker';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -18,18 +19,19 @@ bootstrapApplication(AppComponent, {
     HackerNewsService,
     provideAnimations(),
     // https://dev.to/ngrx/using-ngrx-packages-with-standalone-angular-features-53d8
-    provideStore(
-      { [GLOBAL_FEATURE_KEY]: globalReducer },
-      {
+    provideStore({ [GLOBAL_FEATURE_KEY]: globalReducer }, {
         runtimeChecks: {
-          strictActionImmutability: true,
-          strictStateImmutability: true,
+            strictActionImmutability: true,
+            strictStateImmutability: true,
         },
-      }
-    ),
-    provideStoreDevtools({
-      maxAge: 25,
-      logOnly: isDevMode(),
     }),
-  ],
+    provideStoreDevtools({
+        maxAge: 25,
+        logOnly: isDevMode(),
+    }),
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    })
+],
 });
