@@ -1,9 +1,10 @@
 {
-  "name": "hacker-news-angular",
-  "short_name": "hacker-news-angular",
-  "theme_color": "#1976d2",
+  "name": "Hacker news",
+  "short_name": "Hacker news",
+  "theme_color": "#555555",
   "background_color": "#fafafa",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
   "icons": [
