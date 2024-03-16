@@ -1,23 +1,34 @@
-<app-header [title]="title"></app-header>
+<app-header-toolbar [title]="title"></app-header-toolbar>
 
-<div class="wrapper" appScrollNearEnd (nearEnd)="nearEnd.next()">
-  <div class="content">
-    <!-- <h1 class="title">{{ title }}</h1> -->
-    @if (entities.length > 0) {
-    <div class="grid-container">
-      @for (item of entities; track item.id) {
-      <!-- todo: review card height without wrapper -->
-      <app-card [item]="item"></app-card>
-      }
-    </div>
-    } @if (isLoading) {
-      <div class="loading-wrapper">
-        <mat-spinner class="loading-spinner"
-          diameter="{{ (small$ | async) === false ? 100 : 50 }}"
-          strokeWidth="{{ (small$ | async) === false ? 10 : 5 }}"
-          class="center"
-        ></mat-spinner>
+<mat-drawer-container class="drawer-container" autosize>
+  <mat-drawer class="drawer-sidenav" mode="side" position="end" [opened]="isDrawerOpened$ | async">
+    <p>Hacker news</p>
+
+    Layout selection coming soon..
+  </mat-drawer>
+
+  <div class="drawer-sidenav-content">
+    <div class="wrapper" appScrollNearEnd (nearEnd)="nearEnd.next()">
+      <div class="content">
+        <!-- <h1 class="title">{{ title }}</h1> -->
+        @if (entities.length > 0) {
+        <div class="grid-container">
+          @for (item of entities; track item.id) {
+          <!-- todo: review card height without wrapper -->
+          <app-card [item]="item"></app-card>
+          }
+        </div>
+        } @if (isLoading) {
+        <div class="loading-wrapper">
+          <mat-spinner
+            class="loading-spinner"
+            diameter="{{ (small$ | async) === false ? 100 : 50 }}"
+            strokeWidth="{{ (small$ | async) === false ? 10 : 5 }}"
+            class="center"
+          ></mat-spinner>
+        </div>
+        }
       </div>
-    }
+    </div>
   </div>
-</div>
+</mat-drawer-container>

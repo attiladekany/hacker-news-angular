@@ -7,3 +7,7 @@ export const state = createFeatureSelector<Readonly<GlobalState>>(GLOBAL_FEATURE
 export const selectIsMobile$ = createSelector(state, (state) => {
   return state.isMobile;
 });
+
+export const selectIsDrawerOpened$ = createSelector(state, (state) => {
+  return state.isDrawerOpened;
+});
