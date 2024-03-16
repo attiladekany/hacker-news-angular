@@ -9,6 +9,7 @@ import { AnonymousComponent } from '../anonymous/anonymous.component';
   styleUrls: ['./header.component.scss'],
   imports: [RouterModule, AnonymousComponent],
 })
+// Deprecated
 export class HeaderComponent {
   @Input({ required: true }) title = '';
 }
