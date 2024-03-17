@@ -11,6 +11,7 @@ import { GLOBAL_FEATURE_KEY } from './app/+state/global.selector';
 import { globalReducer } from './app/+state/global.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideServiceWorker } from '@angular/service-worker';
+import { metaReducers } from './app/+state/middleware/localstorage-sync.middleware';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -24,6 +25,7 @@ bootstrapApplication(AppComponent, {
             strictActionImmutability: true,
             strictStateImmutability: true,
         },
+        metaReducers: metaReducers
     }),
     provideStoreDevtools({
         maxAge: 25,

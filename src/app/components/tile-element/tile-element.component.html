@@ -1,0 +1,38 @@
+<div class="tile-content">
+  <h2 class="tile-title">{{ item.title }}</h2>
+  <div class="tile-content-container flex">
+      <div class="user news-detail flex">
+        <fa-icon class="icon" [icon]="faUser"></fa-icon>
+        <span>{{ item.by }}</span>
+      </div>
+
+      <div class="time news-detail flex">
+        <fa-icon class="icon" [icon]="faClock"></fa-icon>
+        <span>{{ item.time | localeDate }}</span>
+      </div>
+
+      <div class="type news-detail flex">
+        <fa-icon class="icon" [icon]="faNewspaper"></fa-icon>
+        <span>{{ item.type }}</span>
+      </div>
+
+      @if ((item.kids || []).length > 0) {
+        <div class="comment news-detail flex">
+          <fa-icon class="icon" [icon]="faComment"></fa-icon>
+          <span>{{ item.kids?.length }}</span>
+        </div>
+      }
+
+      <div class="score news-detail flex">
+        <fa-icon class="icon" [icon]="faStar"></fa-icon>
+        <span>{{ 'score: ' + item.score }}</span>
+      </div>
+
+      @if (item.text) {
+        <div class="text news-detail flex">
+          <fa-icon class="icon" [icon]="faBook"></fa-icon>
+          <!-- <div [innerHTML]="item.text"></div> -->
+        </div>
+      }
+  </div>
+</div>

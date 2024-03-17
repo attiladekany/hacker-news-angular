@@ -11,3 +11,7 @@ export const selectIsMobile$ = createSelector(state, (state) => {
 export const selectIsDrawerOpened$ = createSelector(state, (state) => {
   return state.isDrawerOpened;
 });
+
+export const selectLayoutType$ = createSelector(state, (state) => {
+  return state.layoutType;
+});
