@@ -5,12 +5,16 @@
 html,
 body {
   height: 100%;
+  background-color: #303030;
 }
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+.flex {
+  display: flex;
+}
 
 // ======== mat date picker overrides ========
 .hacker-date-picker {
@@ -23,7 +27,6 @@ body {
     width: 115px;
     .mat-mdc-form-field-flex {
       .mat-mdc-form-field-infix {
-
         // Todo: refine active & hover effects
         // .mat-datepicker-input {
         //   color: $pink;
