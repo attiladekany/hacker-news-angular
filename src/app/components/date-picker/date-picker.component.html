@@ -1,5 +1,5 @@
 <mat-form-field>
-  <input matInput [matDatepicker]="picker" [formControl]="datePicker" (dateChange)="onDateChange($event.value)" />
+  <input matInput [matDatepicker]="picker" [max]="currentDate" [formControl]="datePicker" (dateChange)="onDateChange($event.value)" />
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker [startAt]="startDate" disabled="false"></mat-datepicker>
 </mat-form-field>

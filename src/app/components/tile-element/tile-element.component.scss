@@ -1,10 +1,31 @@
 @import '../../../variables';
 
+$lightPink: #ff95b9;
 .tile-content {
   margin: 5px;
 
+  .has-link {
+    margin-right: 20px;
+  }
+
+  .title-wrapper {
+    transition: 0.5s color;
+
+    &:hover {
+      transition: 0.5s color;
+      color: $blue;
+      cursor: pointer;
+    }
+    color: $lightPink;
+
+    .title-icon {
+      padding: 5px;
+      font-size: 20px;
+    }
+  }
+
   .tile-title {
-    color: #ff95b9;
+    position: relative;
   }
 
   .tile-content-container {
@@ -17,6 +38,21 @@
     .news-detail {
       margin-left: 5px;
       margin-right: 5px;
+    }
+  }
+
+  .share-icon {
+    border-radius: 0px 0px 0px 10px;
+    padding: 5px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    transition: 0.5s background-color;
+
+    &:hover {
+      cursor: pointer;
+      transition: 0.5s background-color;
+      background-color: $lightPink;
     }
   }
 }

@@ -17,7 +17,7 @@ export class CardComponent {
   onUrlClicked(url: string | undefined): void {
     if (!url) return;
 
-    if (!confirm(`Are you sure to open this page?\n${url}`)) return;
+    // if (!confirm(`Are you sure to open this page?\n${url}`)) return;
 
     window.open(url);
   }
