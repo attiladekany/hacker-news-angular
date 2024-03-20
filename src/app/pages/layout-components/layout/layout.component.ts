@@ -16,6 +16,7 @@ import { GlobalActions } from 'src/app/+state/global.actions';
 import { LayoutType } from 'src/app/+state/models/global.state';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { TileElementComponent } from 'src/app/components/tile-element/tile-element.component';
+import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-layout',
@@ -48,6 +49,11 @@ export class LayoutComponent {
   layoutType$ = this.store.select(selectLayoutType$);
 
   LayoutType = LayoutType;
+
+  faUpRightFromSquare = faUpRightAndDownLeftFromCenter;
+
+  currentYear = new Date().getFullYear();
+
   constructor(private store: Store) {}
 
   onLayoutTypeChanged(event: MatButtonToggleChange): void {

@@ -32,6 +32,7 @@ import { Moment } from 'moment';
 export class DatePickerComponent implements OnInit {
   @Input() date: string | Date = new Date();
   @Output() dateChanged = new EventEmitter<string>();
+  currentDate: Date = new Date();
   startDate: Date = new Date();
 
   datePicker: FormControl<Date | null> = new FormControl(new Date());

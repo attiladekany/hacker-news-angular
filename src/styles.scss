@@ -16,6 +16,13 @@ body {
   display: flex;
 }
 
+// ======== hide mat-drawer's scrollbar ========
+.drawer-container {
+  mat-drawer-content {
+    overflow: hidden !important;
+  }
+}
+
 // ======== mat date picker overrides ========
 .hacker-date-picker {
   position: absolute;
@@ -47,4 +54,11 @@ body {
       padding: 0;
     }
   }
+}
+
+.center-horizontal {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
 }
