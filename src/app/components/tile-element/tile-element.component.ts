@@ -66,8 +66,6 @@ export class TileElementComponent implements OnInit {
   }
 
   private get _titleIcon(): IconDefinition {
-    console.log('called');
-
     if (!this.routePath) {
       console.warn('No route path');
       return faFaceFrown;

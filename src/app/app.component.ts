@@ -21,10 +21,11 @@ import { SwUpdate } from '@angular/service-worker';
 export class AppComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
 
-  constructor(private responsive: BreakpointObserver, private swUpdate: SwUpdate, private store: Store) {}
+  constructor(private responsive: BreakpointObserver, private swUpdate: SwUpdate, private store: Store) {
+    this._subscribeToVersionUpdates();
+  }
 
   ngOnInit(): void {
-    this._subscribeToVersionUpdates();
     this._setIsMobileListener();
   }
 
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
   private _subscribeToVersionUpdates(): void {
     if (!this.swUpdate.isEnabled) return;
 
-    this.swUpdate.versionUpdates.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((event) => {
+    this.swUpdate.versionUpdates.pipe(takeUntilDestroyed()).subscribe((event) => {
       if (event.type !== 'VERSION_READY') return;
 
       if (confirm("You're using an old version of the control panel. Want to update?")) {
