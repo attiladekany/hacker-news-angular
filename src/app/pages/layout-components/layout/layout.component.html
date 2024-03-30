@@ -1,6 +1,6 @@
 <app-header-toolbar [title]="title"></app-header-toolbar>
 
-<mat-drawer-container class="drawer-container" autosize>
+<mat-drawer-container class="drawer-container" autosize [ngClass]="{ 'initial-loading': isLoading && entities.length === 0 }">
   <mat-drawer class="drawer-sidenav" mode="side" position="end" [opened]="isDrawerOpened$ | async">
     <h2>Hacker news</h2>
 
@@ -19,42 +19,40 @@
         </div>
         <div class="footer-text center-horizontal">
           Designed by <a href="https://www.linkedin.com/in/attila-dekany/">Attila Dekany</a>
-          <div> &copy; {{ currentYear }}</div>
+          <div>&copy; {{ currentYear }}</div>
         </div>
       </div>
     </div>
   </mat-drawer>
 
   <div class="drawer-sidenav-content">
-    <div class="wrapper" appScrollNearEnd (nearEnd)="nearEnd.next()">
+    <div class="scrolling-wrapper" appScrollNearEnd (nearEnd)="nearEnd.next()">
       <div class="content" [style.width]="(small$ | async) === true ? 100 + '%' : 80 + '%'">
         @if((layoutType$ | async) === LayoutType.Card) {
           @if (entities.length > 0) {
-          <div class="grid-container">
-            @for (item of entities; track item.id) {
-            <!-- todo: review card height without wrapper -->
-            <app-card [item]="item"></app-card>
-            }
-          </div>
+        <div class="grid-container">
+          @for (item of entities; track item.id) {
+          <!-- todo: review card height without wrapper -->
+          <app-card [item]="item"></app-card>
           }
+        </div>
+        }
+      }
+         @if((layoutType$ | async) === LayoutType.Grid) {
+
+        <mat-grid-list cols="1" rowHeight="130px" gutterSize="7px">
+          @for (item of entities; track item.id; let idx = $index, e = $even) {
+          <mat-grid-tile class="grid-tile"
+                        [colspan]="1"
+                        [rowspan]="1"
+                        [style.background]="'#404040f5'">
+            <app-tile-element [item]="item" class="tile-element"></app-tile-element>
+          </mat-grid-tile>
+          }
+        </mat-grid-list>
         }
 
-        @if((layoutType$ | async) === LayoutType.Grid) {
-
-          <mat-grid-list cols="1" rowHeight="130px" gutterSize="7px">
-            @for (item of entities; track item.id; let idx = $index,  e = $even) {
-              <mat-grid-tile
-              class="grid-tile"
-              [colspan]="1"
-              [rowspan]="1"
-              [style.background]="'#404040f5'">
-                <app-tile-element [item]="item" class="tile-element"></app-tile-element>
-              </mat-grid-tile>
-            }
-          </mat-grid-list>
-        }
-
-         @if (isLoading) {
+        @if (isLoading) {
         <div class="loading-wrapper">
           <mat-spinner
             class="loading-spinner"
