@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
   imports: [MatToolbarModule, MatButtonModule, MatIconModule],
 })
 export class HeaderToolbarComponent {
-  constructor(private store: Store) {}
+  private store = inject(Store);
 
   @Input({ required: true }) title = '';
 

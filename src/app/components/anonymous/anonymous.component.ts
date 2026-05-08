@@ -7,13 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   standalone: true,
 })
 export class AnonymousComponent implements OnInit {
-  @Input() width: number = 500;
-  @Input() height: number = 500;
-  @Input() borderRadius: number = 500;
-  @Input() fillColor: string = '';
+  @Input() width = 500;
+  @Input() height = 500;
+  @Input() borderRadius = 500;
+  @Input() fillColor = '';
 
-  styles: {} | null = null;
-  svgStyles: { [klass: string]: string | number } = {};
+  styles: Record<string, unknown> | null = null;
+  svgStyles: Record<string, string | number> = {};
 
   ngOnInit(): void {
     this.svgStyles = {

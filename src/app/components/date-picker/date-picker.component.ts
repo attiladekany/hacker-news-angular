@@ -35,7 +35,7 @@ export class DatePickerComponent implements OnInit {
   currentDate: Date = new Date();
   startDate: Date = new Date();
 
-  datePicker: FormControl<Date | null> = new FormControl(new Date());
+  datePicker: FormControl<Date | null> = new FormControl<Date | null>(new Date());
 
   ngOnInit(): void {
     const date = typeof this.date === 'string' ? new Date(this.date) : new Date();

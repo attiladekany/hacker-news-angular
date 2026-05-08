@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { LocaleDatePipe } from 'src/app/pipes/local-date.pipe';
 import { Item } from 'src/typescript-angular-client-generated';
-import { AnonymousComponent } from '../anonymous/anonymous.component';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -27,13 +26,14 @@ import { selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, AnonymousComponent, LocaleDatePipe, FontAwesomeModule],
+  imports: [CommonModule, LocaleDatePipe, FontAwesomeModule],
   selector: 'app-tile-element',
   templateUrl: './tile-element.component.html',
   styleUrls: ['./tile-element.component.scss'],
 })
 export class TileElementComponent implements OnInit {
-  constructor(private _route: ActivatedRoute, private store: Store) {}
+  private _route = inject(ActivatedRoute);
+  private store = inject(Store);
   titleIcon: IconDefinition = faFaceFrown;
   navigator = window.navigator;
   routePath: string | undefined;

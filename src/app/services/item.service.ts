@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { HackerNewsService, Item } from 'src/typescript-angular-client-generated';
 
@@ -6,10 +6,10 @@ import { HackerNewsService, Item } from 'src/typescript-angular-client-generated
   providedIn: 'root',
 })
 export class ItemService {
-  constructor(private _hackerNewsService: HackerNewsService) {}
+  private _hackerNewsService = inject(HackerNewsService);
 
   getItemsByIds$(ids: number[]): Observable<Item[]> {
-    let itemsQueries$ = ids.map((id: number) => this._hackerNewsService.getItem(id.toString()));
+    const itemsQueries$ = ids.map((id: number) => this._hackerNewsService.getItem(id.toString()));
     return forkJoin(itemsQueries$);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { EMPTY, Observable, catchError, exhaustMap, switchMap, tap, throwError } from 'rxjs';
 import { PagedItemResult } from 'src/app/models/paged-result.model';
@@ -6,7 +6,7 @@ import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
 import { PagedItemsService } from 'src/app/services/paged-items.service';
 import { Item } from 'src/typescript-angular-client-generated';
 
-export const getInitialState = (date: string) => ({...INITIAL_STATE, date })
+export const getInitialState = (date: string) => ({ ...INITIAL_STATE, date });
 
 const INITIAL_STATE: ItemsState<Item> = {
   date: new Date().toISOString().slice(0, 10),
@@ -28,7 +28,9 @@ export interface ItemsState<T> {
 
 @Injectable()
 export class ItemsStore extends ComponentStore<ItemsState<Item>> {
-  constructor(private _pagedItemsService: PagedItemsService) {
+  private _pagedItemsService = inject(PagedItemsService);
+
+  constructor() {
     super(INITIAL_STATE);
   }
 
@@ -43,10 +45,10 @@ export class ItemsStore extends ComponentStore<ItemsState<Item>> {
             tapResponse({
               next: (pagedItems: PagedItemResult) => this._addEntities(pagedItems),
               error: (e) => throwError(() => e),
-            })
+            }),
           );
-        })
-      )
+        }),
+      ),
   );
 
   readonly getNextElements$ = this.effect((page$: Observable<number>) => {
@@ -61,9 +63,9 @@ export class ItemsStore extends ComponentStore<ItemsState<Item>> {
             error: (e) => throwError(() => e),
           }),
           // 👇 Handle potential error within inner pipe.
-          catchError(() => EMPTY)
-        )
-      )
+          catchError(() => EMPTY),
+        ),
+      ),
     );
   });
 

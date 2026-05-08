@@ -1,5 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, inject } from '@angular/core';
 
 // Ref.: https://dev.to/krivanek06/angular-infinite-scrolling-2jab
 
@@ -16,8 +15,7 @@ export class ScrollNearEndDirective implements OnInit {
   @Input() threshold = 120;
 
   private window!: Window;
-
-  constructor(private el: ElementRef) {}
+  private el = inject(ElementRef);
 
   ngOnInit(): void {
     // save window object for type safety
@@ -25,7 +23,7 @@ export class ScrollNearEndDirective implements OnInit {
   }
 
   @HostListener('window:scroll', ['$event.target'])
-  windowScrollEvent(event: KeyboardEvent) {
+  windowScrollEvent(): void {
     // height of whole window page
     const heightOfWholePage = this.window.document.documentElement.scrollHeight;
 
@@ -38,15 +36,14 @@ export class ScrollNearEndDirective implements OnInit {
     // height of opened window - shrinks if console is opened
     const innerHeight = this.window.innerHeight;
 
-   /**
-    * the area between the start of the page and when this element is visible
-    * in the parent component
-    */
+    /**
+     * the area between the start of the page and when this element is visible
+     * in the parent component
+     */
     const spaceOfElementAndPage = heightOfWholePage - heightOfElement;
 
     // calculated whether we are near the end
-    const scrollToBottom =
-      heightOfElement - innerHeight - currentScrolledY + spaceOfElementAndPage;
+    const scrollToBottom = heightOfElement - innerHeight - currentScrolledY + spaceOfElementAndPage;
 
     // if the user is near end
     if (scrollToBottom < this.threshold) {

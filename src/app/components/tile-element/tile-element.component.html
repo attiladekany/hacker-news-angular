@@ -5,16 +5,33 @@
     </div>
 
     @if (small$ | async) {
-    <h3 class="tile-title" (click)="onUrlClicked(item.url)" [ngClass]="{ 'has-link': !!item.url }">{{ item.title }}</h3>
+      <h3
+        class="tile-title"
+        (click)="onUrlClicked(item.url)"
+        (keyup.enter)="onUrlClicked(item.url)"
+        [ngClass]="{ 'has-link': !!item.url }"
+        role="button"
+        tabindex="0"
+      >
+        {{ item.title }}
+      </h3>
     } @else {
-    <h1 class="tile-title" (click)="onUrlClicked(item.url)" [ngClass]="{ 'has-link': !!item.url }">{{ item.title }}</h1>
+      <h1
+        class="tile-title"
+        (click)="onUrlClicked(item.url)"
+        (keyup.enter)="onUrlClicked(item.url)"
+        [ngClass]="{ 'has-link': !!item.url }"
+        role="button"
+        tabindex="0"
+      >
+        {{ item.title }}
+      </h1>
     }
-
   </div>
   @if (item.url) {
-  <div class="share-icon" (click)="onShareClicked(item)">
-    <fa-icon class="icon" [icon]="faShare"></fa-icon>
-  </div>
+    <div class="share-icon" (click)="onShareClicked(item)" (keyup.enter)="onShareClicked(item)" role="button" tabindex="0">
+      <fa-icon class="icon" [icon]="faShare"></fa-icon>
+    </div>
   }
   <div class="tile-content-container flex">
     <div class="user news-detail flex">
@@ -33,10 +50,10 @@
     </div>
 
     @if ((item.kids || []).length > 0) {
-    <div class="comment news-detail flex">
-      <fa-icon class="icon" [icon]="faComment"></fa-icon>
-      <span>{{ item.kids?.length }}</span>
-    </div>
+      <div class="comment news-detail flex">
+        <fa-icon class="icon" [icon]="faComment"></fa-icon>
+        <span>{{ item.kids?.length }}</span>
+      </div>
     }
 
     <div class="score news-detail flex">
@@ -45,14 +62,15 @@
     </div>
 
     @if (item.text) {
-    <div class="text news-detail flex">
-      <fa-icon class="icon" [icon]="faBook"></fa-icon>
-      <!-- <div [innerHTML]="item.text"></div> -->
-    </div>
-    } @if (item.url) {
-    <div class="has-link-icon">
-      <fa-icon class="icon" [icon]="faUpRightFromSquare"></fa-icon>
-    </div>
+      <div class="text news-detail flex">
+        <fa-icon class="icon" [icon]="faBook"></fa-icon>
+        <!-- <div [innerHTML]="item.text"></div> -->
+      </div>
+    }
+    @if (item.url) {
+      <div class="has-link-icon">
+        <fa-icon class="icon" [icon]="faUpRightFromSquare"></fa-icon>
+      </div>
     }
   </div>
 </div>

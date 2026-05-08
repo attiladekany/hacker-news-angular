@@ -1,0 +1,52 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "sourceType": "module"
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-misused-promises": "error",
+        "@angular-eslint/prefer-on-push-component-change-detection": "error",
+        "@angular-eslint/prefer-standalone": "error",
+        "@angular-eslint/no-empty-lifecycle-method": "warn"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/template/no-negated-async": "error"
+      }
+    }
+  ]
+}

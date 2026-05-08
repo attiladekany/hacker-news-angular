@@ -1,0 +1,6 @@
+Cannot find "lint" target for the specified project.
+You can add a package that implements these capabilities.
+
+For example:
+  ESLint: ng add @angular-eslint/schematics
+

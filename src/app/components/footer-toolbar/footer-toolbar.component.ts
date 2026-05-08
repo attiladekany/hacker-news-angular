@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,10 +16,8 @@ import { selectIsMobile$ } from 'src/app/+state/global.selector';
   imports: [CommonModule, RouterModule, DatePickerComponent, MatToolbarModule, MatIconModule, MatRippleModule],
 })
 export class FooterToolbarComponent {
-  constructor(
-    public router: Router,
-    private store: Store,
-  ) {}
+  private router = inject(Router);
+  private store = inject(Store);
   date: string = new Date().toISOString().slice(0, 10);
   small$ = this.store.select(selectIsMobile$);
 

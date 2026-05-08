@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractBasePage } from './abstract-base-page.directive';
 import { LayoutComponent } from '../layout-components/layout/layout.component';
@@ -17,22 +17,22 @@ import { ItemService } from 'src/app/services/item.service';
   providers: [BaseItemsStore, ComponentStore],
 })
 export class BasePageComponent extends AbstractBasePage {
-  readonly isLoading$ = this.store.select((state) => state.isLoading);
-  readonly state$ = this.store.select((state) => state);
+  override _store = inject(BaseItemsStore);
+  readonly isLoading$ = this._store.select((state) => state.isLoading);
+  readonly state$ = this._store.select((state) => state);
 
-  constructor(
-    protected override store: BaseItemsStore,
-    protected override _itemService: ItemService,
-    protected override _route: ActivatedRoute,
-  ) {
-    super(store, _route, _itemService);
+  override _itemService = inject(ItemService);
+  override _route = inject(ActivatedRoute);
+
+  constructor() {
+    super();
   }
 
   async onNearEndScroll(): Promise<void> {
     const { page, isLoading, hasMore } = await firstValueFrom(this.state$);
     if (isLoading || !hasMore) return;
-    this.store.patchState({ isLoading: true });
+    this._store.patchState({ isLoading: true });
 
-    this.store.getNextElements$(page + 1);
+    this._store.getNextElements$(page + 1);
   }
 }

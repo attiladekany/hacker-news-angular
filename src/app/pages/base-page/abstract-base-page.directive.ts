@@ -1,4 +1,4 @@
-import { Directive, OnInit } from '@angular/core';
+import { Directive, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemIds } from '../../models/item-ids.model';
 import { BaseItemsStore } from './+state/base-item.store';
@@ -6,21 +6,18 @@ import { ItemService } from 'src/app/services/item.service';
 
 @Directive()
 export abstract class AbstractBasePage implements OnInit {
-  readonly entities$ = this.store.select((state) => state.entities);
-
   title = '';
+  protected _store = inject(BaseItemsStore);
+  readonly entities$ = this._store.select((state) => state.entities);
 
-  constructor(
-    protected store: BaseItemsStore,
-    protected _route: ActivatedRoute,
-    protected _itemService: ItemService,
-  ) {}
+  protected _route = inject(ActivatedRoute);
+  protected _itemService = inject(ItemService);
 
   ngOnInit(): void {
     this.title = this._route.snapshot.routeConfig?.title as string;
     const { ids } = this._route.snapshot.data as ItemIds;
-    this.store.patchState({ ids });
+    this._store.patchState({ ids });
 
-    this.store.loadInitialPageData$();
+    this._store.loadInitialPageData$();
   }
 }

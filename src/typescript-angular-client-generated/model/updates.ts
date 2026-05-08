@@ -11,6 +11,6 @@
  */
 
 export interface Updates { 
-    items: Array<number>;
-    profiles?: Array<string>;
+    items: number[];
+    profiles?: string[];
 }

@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { EMPTY, Observable, catchError, exhaustMap, switchMap, tap, throwError } from 'rxjs';
 import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
 import { ItemService } from 'src/app/services/item.service';
-import { PagedItemsService } from 'src/app/services/paged-items.service';
 import { Item } from 'src/typescript-angular-client-generated';
 
 const INITIAL_STATE: BaseItemsState<Item> = {
@@ -26,7 +25,9 @@ export interface BaseItemsState<T> {
 
 @Injectable()
 export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
-  constructor(private _itemService: ItemService) {
+  private _itemService = inject(ItemService);
+
+  constructor() {
     super(INITIAL_STATE);
   }
 

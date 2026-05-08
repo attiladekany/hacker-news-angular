@@ -19,12 +19,11 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class AppComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
+  private responsive = inject(BreakpointObserver);
+  private swUpdate = inject(SwUpdate);
+  private store = inject(Store);
 
-  constructor(
-    private responsive: BreakpointObserver,
-    private swUpdate: SwUpdate,
-    private store: Store,
-  ) {
+  constructor() {
     this._subscribeToVersionUpdates();
   }
 

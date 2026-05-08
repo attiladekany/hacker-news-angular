@@ -16,5 +16,5 @@ export interface User {
     delay?: number;
     id?: string;
     karma?: number;
-    submitted?: Array<number>;
+    submitted?: number[];
 }

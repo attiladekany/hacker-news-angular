@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -19,18 +19,15 @@ import { LayoutComponent } from '../layout-components/layout/layout.component';
 export class DatePageComponent implements OnInit, OnDestroy {
   title = '';
 
-  readonly entities$ = this.store.select((state) => state.entities);
-  readonly isLoading$ = this.store.select((state) => state.isLoading);
-  readonly page$ = this.store.select((state) => state.page);
-  readonly state$ = this.store.select((state) => state);
+  private _store = inject(ItemsStore);
+  readonly entities$ = this._store.select((state) => state.entities);
+  readonly isLoading$ = this._store.select((state) => state.isLoading);
+  readonly page$ = this._store.select((state) => state.page);
+  readonly state$ = this._store.select((state) => state);
 
   private _unsubscriber = new Subject<void>();
-
-  constructor(
-    private readonly store: ItemsStore,
-    private _router: Router,
-    private route: ActivatedRoute,
-  ) {}
+  private _router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this._router.events
@@ -38,16 +35,16 @@ export class DatePageComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscriber),
         filter((x) => x instanceof NavigationEnd),
       )
-      .subscribe(async (routerEvent) => {
+      .subscribe(async () => {
         const { date } = await firstValueFrom(this.state$);
-        let queryDate = this.route.snapshot.params['date'];
+        const queryDate = this.route.snapshot.params['date'];
         if (date === queryDate) return;
 
-        this.store.patchState(getInitialState(queryDate));
-        this.store.loadInitialPageData$();
+        this._store.patchState(getInitialState(queryDate));
+        this._store.loadInitialPageData$();
       });
 
-    this.store.loadInitialPageData$();
+    this._store.loadInitialPageData$();
   }
 
   ngOnDestroy(): void {
@@ -59,7 +56,7 @@ export class DatePageComponent implements OnInit, OnDestroy {
     const { page, isLoading, hasMore } = await firstValueFrom(this.state$);
     if (isLoading || !hasMore) return;
 
-    this.store.patchState({ isLoading: true });
-    this.store.getNextElements$(page + 1);
+    this._store.patchState({ isLoading: true });
+    this._store.getNextElements$(page + 1);
   }
 }

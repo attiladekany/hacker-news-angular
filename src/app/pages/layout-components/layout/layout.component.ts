@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from 'src/app/components/card/card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -23,7 +23,6 @@ import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icon
   standalone: true,
   imports: [
     CommonModule,
-    HeaderComponent,
     HeaderToolbarComponent,
     CardComponent,
     MatProgressSpinnerModule,
@@ -44,9 +43,10 @@ export class LayoutComponent {
   @Input({ required: true }) isLoading = true;
   @Output() nearEnd: EventEmitter<void> = new EventEmitter<void>();
 
-  small$ = this.store.select(selectIsMobile$);
-  isDrawerOpened$ = this.store.select(selectIsDrawerOpened$);
-  layoutType$ = this.store.select(selectLayoutType$);
+  private _store = inject(Store);
+  small$ = this._store.select(selectIsMobile$);
+  isDrawerOpened$ = this._store.select(selectIsDrawerOpened$);
+  layoutType$ = this._store.select(selectLayoutType$);
 
   LayoutType = LayoutType;
 
@@ -54,9 +54,7 @@ export class LayoutComponent {
 
   currentYear = new Date().getFullYear();
 
-  constructor(private store: Store) {}
-
   onLayoutTypeChanged(event: MatButtonToggleChange): void {
-    this.store.dispatch(GlobalActions.setLayoutType({ layoutType: event.value }));
+    this._store.dispatch(GlobalActions.setLayoutType({ layoutType: event.value }));
   }
 }
