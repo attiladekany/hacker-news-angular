@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from 'src/app/components/card/card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LayoutModule } from '@angular/cdk/layout';
 import { Subject, filter, firstValueFrom, takeUntil } from 'rxjs';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { ScrollNearEndDirective } from 'src/app/directives/scroll-near-end.directive';
 import { ComponentStore } from '@ngrx/component-store';
 import { ItemsStore, getInitialState } from './+state/item.store';
 import { LayoutComponent } from '../layout-components/layout/layout.component';
@@ -15,7 +13,7 @@ import { LayoutComponent } from '../layout-components/layout/layout.component';
   selector: 'app-date-page',
   templateUrl: './date-page.component.html',
   styleUrls: ['./date-page.component.scss'],
-  imports: [LayoutComponent, CommonModule, CardComponent, MatProgressSpinnerModule, LayoutModule, ScrollNearEndDirective],
+  imports: [LayoutComponent, CommonModule, MatProgressSpinnerModule, LayoutModule],
   providers: [ItemsStore, ComponentStore],
 })
 export class DatePageComponent implements OnInit, OnDestroy {
@@ -28,13 +26,17 @@ export class DatePageComponent implements OnInit, OnDestroy {
 
   private _unsubscriber = new Subject<void>();
 
-  constructor(private readonly store: ItemsStore, private _router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private readonly store: ItemsStore,
+    private _router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this._router.events
       .pipe(
         takeUntil(this._unsubscriber),
-        filter((x) => x instanceof NavigationEnd)
+        filter((x) => x instanceof NavigationEnd),
       )
       .subscribe(async (routerEvent) => {
         const { date } = await firstValueFrom(this.state$);

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { EMPTY, Observable, catchError, exhaustMap, switchMap, tap, throwError } from 'rxjs';
 import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
-import { ItemService } from 'src/app/services/item.service.ts';
+import { ItemService } from 'src/app/services/item.service';
 import { PagedItemsService } from 'src/app/services/paged-items.service';
 import { Item } from 'src/typescript-angular-client-generated';
 
@@ -26,7 +26,7 @@ export interface BaseItemsState<T> {
 
 @Injectable()
 export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
-  constructor(private _pagedItemsService: PagedItemsService, private _itemService: ItemService) {
+  constructor(private _itemService: ItemService) {
     super(INITIAL_STATE);
   }
 
@@ -46,10 +46,10 @@ export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
                 this.patchState({ page, hasMore });
               },
               error: (e) => throwError(() => e),
-            })
+            }),
           );
-        })
-      )
+        }),
+      ),
   );
 
   readonly getNextElements$ = this.effect((page$: Observable<number>) => {
@@ -76,9 +76,9 @@ export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
             error: (e) => throwError(() => e),
           }),
           // 👇 Handle potential error within inner pipe.
-          catchError(() => EMPTY)
+          catchError(() => EMPTY),
         );
-      })
+      }),
     );
   });
 
@@ -97,7 +97,7 @@ export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
         entities: Item[];
         page: number;
         hasMore: boolean;
-      }
+      },
     ) => {
       const { hasMore, page, entities } = pagedItemResult;
       return {
@@ -107,7 +107,7 @@ export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
         isLoading: false,
         entities: [...state.entities, ...entities],
       };
-    }
+    },
   );
 
   applyPaging(ids: number[], offset: number, size: number): { ids: number[]; hasMore: boolean } {

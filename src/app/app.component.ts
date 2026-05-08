@@ -1,5 +1,4 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { FooterToolbarComponent } from './components/footer-toolbar/footer-toolbar.component';
 import { firstValueFrom, map } from 'rxjs';
@@ -16,12 +15,16 @@ import { SwUpdate } from '@angular/service-worker';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, FooterToolbarComponent],
+  imports: [CommonModule, RouterModule, FooterToolbarComponent],
 })
 export class AppComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
 
-  constructor(private responsive: BreakpointObserver, private swUpdate: SwUpdate, private store: Store) {
+  constructor(
+    private responsive: BreakpointObserver,
+    private swUpdate: SwUpdate,
+    private store: Store,
+  ) {
     this._subscribeToVersionUpdates();
   }
 
@@ -34,7 +37,7 @@ export class AppComponent implements OnInit {
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .pipe(
         takeUntilDestroyed(this._destroyRef),
-        map((result) => result.matches)
+        map((result) => result.matches),
       )
       .subscribe(async (isMobile) => {
         const stored = await firstValueFrom(this.store.select(selectIsMobile$));

@@ -2,7 +2,6 @@
 
 .header-toolbar {
   background-color: #555555;
-
   .bebas-neue-regular {
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
@@ -10,18 +9,15 @@
   }
 
   .title {
+    margin: auto;
+    margin-top: 20px;
     color: $pink;
     font-size: 50px;
     text-align: center;
-    margin-top: 15px;
   }
 
   .hamburger-icon {
     position: absolute;
     right: 10px;
-  }
-
-  .center {
-    margin: 50px auto 50px auto;
   }
 }

@@ -25,33 +25,49 @@ body {
 
 // ======== mat date picker overrides ========
 .hacker-date-picker {
+  top: 20px !important;
   position: absolute;
+
+  .mat-mdc-form-field,
+  .mat-mdc-text-field-wrapper,
+  .mat-mdc-text-field-wrapper .mdc-text-field,
+  .mat-mdc-text-field-wrapper .mdc-text-field::before,
+  .mat-mdc-form-field-infix,
+  .mat-mdc-input-element {
+    background-color: transparent !important;
+  }
 
   .mat-mdc-form-field {
     height: 100px;
   }
+
   .mat-mdc-text-field-wrapper {
     width: 115px;
-    .mat-mdc-form-field-flex {
-      .mat-mdc-form-field-infix {
-        // Todo: refine active & hover effects
-        // .mat-datepicker-input {
-        //   color: $pink;
-        // }
 
+    .mat-mdc-form-field-flex {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+
+      .mat-mdc-form-field-infix {
+        top: -16px;
+        left: 12px;
         padding: 0;
         width: 100px;
         min-height: 33px;
+        order: 1;
       }
-      color: aqua;
-      display: unset !important;
-    }
 
-    .mat-mdc-form-field-icon-suffix {
-      left: 17px;
-      margin-top: -18px;
+      .mat-mdc-input-element {
+        color: white !important;
+        font: 13.3333px Arial !important;
+        font-weight: 600 !important;
+      }
 
-      padding: 0;
+      .mat-mdc-form-field-icon-suffix {
+        order: -1;
+        left: 0;
+      }
     }
   }
 }
