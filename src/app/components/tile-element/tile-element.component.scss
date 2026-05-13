@@ -43,16 +43,29 @@ $lightPink: #ff95b9;
 
   .share-icon {
     border-radius: 0px 0px 0px 10px;
-    padding: 5px;
+    padding: 10px;
     top: 0;
     right: 0;
     position: absolute;
     transition: 0.5s background-color;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid $lightPink;
+    border-right: none;
+    border-top: none;
+
+    .icon {
+      font-size: 24px;
+      color: $lightPink;
+    }
 
     &:hover {
       cursor: pointer;
       transition: 0.5s background-color;
       background-color: $lightPink;
+
+      .icon {
+        color: #333;
+      }
     }
   }
 }

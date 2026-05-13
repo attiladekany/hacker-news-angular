@@ -1,4 +1,4 @@
-<app-header-toolbar [title]="title"></app-header-toolbar>
+<app-header-toolbar [title]="title" [isLoading]="isLoading"></app-header-toolbar>
 
 <mat-drawer-container class="drawer-container" autosize [ngClass]="{ 'initial-loading': isLoading && entities.length === 0 }">
   <mat-drawer class="drawer-sidenav" mode="side" position="end" [opened]="isDrawerOpened$ | async">

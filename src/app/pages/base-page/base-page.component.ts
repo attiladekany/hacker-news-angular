@@ -19,7 +19,7 @@ import { ItemService } from 'src/app/services/item.service';
 export class BasePageComponent extends AbstractBasePage {
   override _store = inject(BaseItemsStore);
   readonly isLoading$ = this._store.select((state) => state.isLoading);
-  readonly state$ = this._store.select((state) => state);
+  override state$ = this._store.select((state) => state);
 
   override _itemService = inject(ItemService);
   override _route = inject(ActivatedRoute);

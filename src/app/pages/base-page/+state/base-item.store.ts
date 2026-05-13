@@ -38,8 +38,8 @@ export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
       trigger$.pipe(
         exhaustMap(() => {
           const { ids, size, page } = this.state();
-          const nextIds = ids.splice(0, size);
-          const hasMore = nextIds.length === size;
+          const nextIds = ids.slice(0, size);
+          const hasMore = ids.length > size;
           return this._itemService.getItemsByIds$(nextIds).pipe(
             tapResponse({
               next: (entities: Item[]) => {

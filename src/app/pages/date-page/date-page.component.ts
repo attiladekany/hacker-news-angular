@@ -7,6 +7,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { ItemsStore, getInitialState } from './+state/item.store';
 import { LayoutComponent } from '../layout-components/layout/layout.component';
+import { DataRefreshService } from 'src/app/services/data-refresh.service';
 
 @Component({
   standalone: true,
@@ -20,6 +21,7 @@ export class DatePageComponent implements OnInit, OnDestroy {
   title = '';
 
   private _store = inject(ItemsStore);
+  private _refreshService = inject(DataRefreshService);
   readonly entities$ = this._store.select((state) => state.entities);
   readonly isLoading$ = this._store.select((state) => state.isLoading);
   readonly page$ = this._store.select((state) => state.page);
@@ -30,15 +32,28 @@ export class DatePageComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
+    // Listen for refresh triggered from header
+    this._refreshService.refresh$
+      .pipe(takeUntil(this._unsubscriber))
+      .subscribe(async () => {
+        // Only refresh if not already loading
+        const { date, isLoading } = await firstValueFrom(this.state$);
+        if (isLoading) return;
+
+        this._store.patchState(getInitialState(date));
+        this._store.loadInitialPageData$();
+      });
+
+    // Handle navigation changes
     this._router.events
       .pipe(
         takeUntil(this._unsubscriber),
         filter((x) => x instanceof NavigationEnd),
       )
       .subscribe(async () => {
-        const { date } = await firstValueFrom(this.state$);
+        const { date, isLoading } = await firstValueFrom(this.state$);
         const queryDate = this.route.snapshot.params['date'];
-        if (date === queryDate) return;
+        if (date === queryDate || isLoading) return;
 
         this._store.patchState(getInitialState(queryDate));
         this._store.loadInitialPageData$();

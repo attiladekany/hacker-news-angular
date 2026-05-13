@@ -13,7 +13,7 @@ import {
   faGripLinesVertical,
   faHeart,
   faNewspaper,
-  faShare,
+  faShareNodes,
   faStar,
   faUpRightFromSquare,
   faUser,
@@ -49,7 +49,7 @@ export class TileElementComponent implements OnInit {
   faBook = faBook;
   faNewspaper = faNewspaper;
   faGripLinesVertical = faGripLinesVertical;
-  faShare = faShare;
+  faShareNodes = faShareNodes;
   faUpRightFromSquare = faUpRightFromSquare;
 
   private _titleIconMap: Map<string, IconDefinition> = new Map<string, IconDefinition>([
@@ -97,6 +97,6 @@ export class TileElementComponent implements OnInit {
     this.navigator
       .share(shareData)
       .then(() => console.log(`Successfully shared`))
-      .catch((err) => alert(`Error: ${err}`));
+      .catch((err) => console.log(`Error: ${err}`));
   }
 }

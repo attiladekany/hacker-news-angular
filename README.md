@@ -4,7 +4,6 @@
 
 [DEMO](https://animated-otter-9d4a1b.netlify.app/)
 
-
 <table>
   <tr>
     <th>Angular</th>
@@ -13,17 +12,17 @@
     <th>Progressive Web App</th>
   </tr>
   <tr>
-    <td><img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Angular_Logo_SVG.svg" alt="angular logo" width="300" /></td>
-    <td><img src="https://ngrx.io/assets/images/badge.svg" alt="ngrx logo" width="80"/></td>
+    <td><img src="https://angular.io/assets/images/logos/angular/angular_solidBlack.svg" alt="angular logo" width="120" /></td>
+    <td><img src="https://ngrx.io/ngrx-logo.svg" alt="ngrx logo" width="80"/></td>
     <td><img src="https://raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png" alt="redux logo" width="100" /></td>
     <td><img src="https://user-images.githubusercontent.com/3104648/28351989-7f68389e-6c4b-11e7-9bf2-e9fcd4977e7a.png" alt="pwa logo" width="100" /></td>
   </tr>
 
 </table>
 
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 and redesign the hacker news page using the following API/sources:
+
 - https://news.ycombinator.com/news
 - https://github.com/HackerNews/API
 

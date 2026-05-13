@@ -1,6 +1,15 @@
 <mat-toolbar class="header-toolbar">
-  <span class="title bebas-neue-regular">{{ title }}</span>
-  <button mat-icon-button (click)="onHamburgerClicked()" class="hamburger-icon" aria-label="Side nav">
-    <mat-icon>menu</mat-icon>
-  </button>
+  <div class="center">
+    <a class="title-link bebas-neue-regular" (click)="onTitleClicked()" role="button" tabindex="0" [class.disabled]="isLoading">
+      <span class="title">{{ title }}</span>
+    </a>
+  </div>
+  <div class="right">
+    <a mat-icon-button href="https://news.ycombinator.com/" target="_blank" aria-label="Original Hacker News">
+      <mat-icon>link</mat-icon>
+    </a>
+    <button mat-icon-button (click)="onHamburgerClicked()" class="hamburger-icon" aria-label="Side nav">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>

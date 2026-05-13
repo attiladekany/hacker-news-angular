@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { GlobalActions } from 'src/app/+state/global.actions';
 import { Store } from '@ngrx/store';
+import { DataRefreshService } from 'src/app/services/data-refresh.service';
 
 @Component({
   standalone: true,
@@ -14,10 +15,18 @@ import { Store } from '@ngrx/store';
 })
 export class HeaderToolbarComponent {
   private store = inject(Store);
+  private refreshService = inject(DataRefreshService);
 
   @Input({ required: true }) title = '';
+  @Input() isLoading = false;
 
   onHamburgerClicked(): void {
     this.store.dispatch(GlobalActions.toggleDrawer());
+  }
+
+  onTitleClicked(): void {
+    if (!this.isLoading) {
+      this.refreshService.triggerRefresh();
+    }
   }
 }

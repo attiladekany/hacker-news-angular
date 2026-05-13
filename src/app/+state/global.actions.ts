@@ -7,5 +7,6 @@ export const GlobalActions = createActionGroup({
     'Set is mobile view': props<{ isMobile: boolean }>(),
     'Toggle drawer': emptyProps(),
     'Set layout type': props<{ layoutType: LayoutType }>(),
+    'Refresh initial page data': emptyProps(),
   },
 });

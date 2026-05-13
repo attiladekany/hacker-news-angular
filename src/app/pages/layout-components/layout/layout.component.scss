@@ -2,6 +2,17 @@
 $margin: 100;
 $linkColor: #7a7878;
 $sidenavWidth: 325px;
+$headerHeight: 56px;
+
+// Fixed header toolbar
+::ng-deep app-header-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+}
 
 // Todo: set opacity background
 .scrolling-wrapper {
@@ -35,6 +46,20 @@ $sidenavWidth: 325px;
   }
 }
 
+// Mobile view: add horizontal margins to cards
+@media (max-width: 768px) {
+  .content {
+    width: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+
+    .grid-container {
+      column-gap: 15px;
+      row-gap: 15px;
+    }
+  }
+}
+
 .center {
   margin: 50px auto 50px auto;
 }
@@ -56,7 +81,7 @@ $sidenavWidth: 325px;
 // workaround for fixing the height of the drawer-container (initial page load)
 .initial-loading {
   position: absolute;
-  top: 60px;
+  top: calc(60px + #{$headerHeight});
   right: 0px;
   left: 0px;
   bottom: 0px;
@@ -66,6 +91,7 @@ $sidenavWidth: 325px;
   width: 100%;
   height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.5);
+  margin-top: $headerHeight;
 }
 
 .drawer-sidenav-content {
@@ -78,6 +104,7 @@ $sidenavWidth: 325px;
 .drawer-sidenav {
   min-width: $sidenavWidth;
   padding: 20px;
+  z-index: 1100;
 }
 
 .tile-element {
