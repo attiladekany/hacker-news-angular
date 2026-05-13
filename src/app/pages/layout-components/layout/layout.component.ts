@@ -19,23 +19,22 @@ import { TileElementComponent } from 'src/app/components/tile-element/tile-eleme
 import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-layout',
-  standalone: true,
-  imports: [
-    CommonModule,
-    HeaderToolbarComponent,
-    CardComponent,
-    MatProgressSpinnerModule,
-    LayoutModule,
-    ScrollNearEndDirective,
-    MatSidenavModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatGridListModule,
-    TileElementComponent,
-  ],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss',
+    selector: 'app-layout',
+    imports: [
+        CommonModule,
+        HeaderToolbarComponent,
+        CardComponent,
+        MatProgressSpinnerModule,
+        LayoutModule,
+        ScrollNearEndDirective,
+        MatSidenavModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatGridListModule,
+        TileElementComponent,
+    ],
+    templateUrl: './layout.component.html',
+    styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
   @Input({ required: true }) title = '';

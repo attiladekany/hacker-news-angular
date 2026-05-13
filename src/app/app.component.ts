@@ -11,11 +11,10 @@ import { selectIsMobile$ } from './+state/global.selector';
 import { SwUpdate } from '@angular/service-worker';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [CommonModule, RouterModule, FooterToolbarComponent],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [CommonModule, RouterModule, FooterToolbarComponent]
 })
 export class AppComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);

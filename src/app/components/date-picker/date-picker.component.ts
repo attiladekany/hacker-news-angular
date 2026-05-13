@@ -8,26 +8,25 @@ import { MatMomentDateModule, provideMomentDateAdapter } from '@angular/material
 import { Moment } from 'moment';
 
 @Component({
-  selector: 'app-date-picker',
-  templateUrl: './date-picker.component.html',
-  styleUrl: './date-picker.component.scss',
-  standalone: true,
-  providers: [
-    provideNativeDateAdapter(),
-    provideMomentDateAdapter({
-      parse: {
-        dateInput: ['l', 'LL'],
-      },
-      display: {
-        dateInput: 'YYYY-MM-DD',
-        monthYearLabel: 'MMM YYYY',
-        dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'MMMM YYYY',
-      },
-    }),
-  ],
-  imports: [MatMomentDateModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-date-picker',
+    templateUrl: './date-picker.component.html',
+    styleUrl: './date-picker.component.scss',
+    providers: [
+        provideNativeDateAdapter(),
+        provideMomentDateAdapter({
+            parse: {
+                dateInput: ['l', 'LL'],
+            },
+            display: {
+                dateInput: 'YYYY-MM-DD',
+                monthYearLabel: 'MMM YYYY',
+                dateA11yLabel: 'LL',
+                monthYearA11yLabel: 'MMMM YYYY',
+            },
+        }),
+    ],
+    imports: [MatMomentDateModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
+    encapsulation: ViewEncapsulation.None
 })
 export class DatePickerComponent implements OnInit {
   @Input() date: string | Date = new Date();

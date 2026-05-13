@@ -25,11 +25,10 @@ import { Store } from '@ngrx/store';
 import { selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, LocaleDatePipe, FontAwesomeModule],
-  selector: 'app-tile-element',
-  templateUrl: './tile-element.component.html',
-  styleUrls: ['./tile-element.component.scss'],
+    imports: [CommonModule, LocaleDatePipe, FontAwesomeModule],
+    selector: 'app-tile-element',
+    templateUrl: './tile-element.component.html',
+    styleUrls: ['./tile-element.component.scss']
 })
 export class TileElementComponent implements OnInit {
   private _route = inject(ActivatedRoute);

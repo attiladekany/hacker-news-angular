@@ -1,4 +1,4 @@
-@import '../../../variables';
+@use '../../../variables' as *;
 
 $lightPink: #ff95b9;
 .tile-content {

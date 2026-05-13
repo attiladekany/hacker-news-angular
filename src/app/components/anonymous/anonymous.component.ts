@@ -4,7 +4,6 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'anonymous-svg',
   templateUrl: './anonymous.component.html',
   styleUrls: ['./anonymous.component.scss'],
-  standalone: true,
 })
 export class AnonymousComponent implements OnInit {
   @Input() width = 500;

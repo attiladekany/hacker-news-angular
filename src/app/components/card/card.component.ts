@@ -6,11 +6,10 @@ import { AnonymousComponent } from '../anonymous/anonymous.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, MatCardModule, AnonymousComponent, LocaleDatePipe],
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
+    imports: [CommonModule, MatCardModule, AnonymousComponent, LocaleDatePipe],
+    selector: 'app-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
   @Input({ required: true }) item: Item = {} as Item;

@@ -10,12 +10,11 @@ import { LayoutComponent } from '../layout-components/layout/layout.component';
 import { DataRefreshService } from 'src/app/services/data-refresh.service';
 
 @Component({
-  standalone: true,
-  selector: 'app-date-page',
-  templateUrl: './date-page.component.html',
-  styleUrls: ['./date-page.component.scss'],
-  imports: [LayoutComponent, CommonModule, MatProgressSpinnerModule, LayoutModule],
-  providers: [ItemsStore, ComponentStore],
+    selector: 'app-date-page',
+    templateUrl: './date-page.component.html',
+    styleUrls: ['./date-page.component.scss'],
+    imports: [LayoutComponent, CommonModule, MatProgressSpinnerModule, LayoutModule],
+    providers: [ItemsStore, ComponentStore]
 })
 export class DatePageComponent implements OnInit, OnDestroy {
   title = '';

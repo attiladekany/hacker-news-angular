@@ -7,11 +7,10 @@ import { Store } from '@ngrx/store';
 import { DataRefreshService } from 'src/app/services/data-refresh.service';
 
 @Component({
-  standalone: true,
-  selector: 'app-header-toolbar',
-  templateUrl: './header-toolbar.component.html',
-  styleUrls: ['./header-toolbar.component.scss'],
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule],
+    selector: 'app-header-toolbar',
+    templateUrl: './header-toolbar.component.html',
+    styleUrls: ['./header-toolbar.component.scss'],
+    imports: [MatToolbarModule, MatButtonModule, MatIconModule]
 })
 export class HeaderToolbarComponent {
   private store = inject(Store);

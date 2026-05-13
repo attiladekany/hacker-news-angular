@@ -9,12 +9,11 @@ import { firstValueFrom } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 
 @Component({
-  standalone: true,
-  selector: 'app-base-page',
-  templateUrl: './base-page.component.html',
-  imports: [LayoutComponent, CommonModule],
-  styleUrls: ['./base-page.component.scss'],
-  providers: [BaseItemsStore, ComponentStore],
+    selector: 'app-base-page',
+    templateUrl: './base-page.component.html',
+    imports: [LayoutComponent, CommonModule],
+    styleUrls: ['./base-page.component.scss'],
+    providers: [BaseItemsStore, ComponentStore]
 })
 export class BasePageComponent extends AbstractBasePage {
   override _store = inject(BaseItemsStore);

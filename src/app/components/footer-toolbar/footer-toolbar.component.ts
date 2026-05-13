@@ -9,11 +9,10 @@ import { Store } from '@ngrx/store';
 import { selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
-  standalone: true,
-  selector: 'app-footer-toolbar',
-  templateUrl: './footer-toolbar.component.html',
-  styleUrls: ['./footer-toolbar.component.scss'],
-  imports: [CommonModule, RouterModule, DatePickerComponent, MatToolbarModule, MatIconModule, MatRippleModule],
+    selector: 'app-footer-toolbar',
+    templateUrl: './footer-toolbar.component.html',
+    styleUrls: ['./footer-toolbar.component.scss'],
+    imports: [CommonModule, RouterModule, DatePickerComponent, MatToolbarModule, MatIconModule, MatRippleModule]
 })
 export class FooterToolbarComponent {
   private router = inject(Router);
