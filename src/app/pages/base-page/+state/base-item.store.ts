@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { ComponentStore } from '@ngrx/component-store';
 import { EMPTY, Observable, catchError, exhaustMap, switchMap, tap, throwError } from 'rxjs';
 import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
 import { ItemService } from 'src/app/services/item.service';
@@ -31,26 +31,25 @@ export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
     super(INITIAL_STATE);
   }
 
-  readonly loadInitialPageData$ = this.effect<void>(
-    // The name of the source stream doesn't matter: `trigger$`, `source$` or `$` are good
-    // names. We encourage to choose one of these and use them consistently in your codebase.
-    (trigger$) =>
-      trigger$.pipe(
-        exhaustMap(() => {
-          const { ids, size, page } = this.state();
-          const nextIds = ids.slice(0, size);
-          const hasMore = ids.length > size;
-          return this._itemService.getItemsByIds$(nextIds).pipe(
-            tapResponse({
-              next: (entities: Item[]) => {
-                this._addEntities(entities);
-                this.patchState({ page, hasMore });
-              },
-              error: (e) => throwError(() => e),
-            }),
-          );
-        }),
-      ),
+  readonly loadInitialPageData$ = this.effect<void>((trigger$) =>
+    trigger$.pipe(
+      exhaustMap(() => {
+        const { ids, size, page } = this.state();
+        const nextIds = ids.slice(0, size);
+        const hasMore = ids.length > size;
+
+        return this._itemService.getItemsByIds$(nextIds).pipe(
+          tap((entities: Item[]) => {
+            this._addEntities(entities);
+            this.patchState({ page, hasMore });
+          }),
+          catchError((error) => {
+            console.error('loadInitialPageData$ failed', error);
+            return EMPTY;
+          }),
+        );
+      }),
+    ),
   );
 
   readonly getNextElements$ = this.effect((page$: Observable<number>) => {

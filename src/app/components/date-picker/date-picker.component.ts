@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,8 +10,7 @@ import { Moment } from 'moment';
 @Component({
   selector: 'app-date-picker',
   templateUrl: './date-picker.component.html',
-  styleUrl: './date-picker.component.scss',
-  standalone: true,
+  styleUrls: ['./date-picker.component.scss'],
   providers: [
     provideNativeDateAdapter(),
     provideMomentDateAdapter({
@@ -28,20 +27,31 @@ import { Moment } from 'moment';
   ],
   imports: [MatMomentDateModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatePickerComponent implements OnInit {
-  @Input() date: string | Date = new Date();
+export class DatePickerComponent {
+  private _date: string | Date = new Date();
+
+  @Input() set date(value: string | Date) {
+    this._date = value;
+    this.datePicker.setValue(this._getDate(value));
+  }
+
+  get date(): string | Date {
+    return this._date;
+  }
+
   @Output() dateChanged = new EventEmitter<string>();
-  currentDate: Date = new Date();
-  startDate: Date = new Date();
+  readonly currentDate = new Date();
 
-  datePicker: FormControl<Date | null> = new FormControl<Date | null>(new Date());
+  get startDate(): Date {
+    return this._getDate(this._date);
+  }
 
-  ngOnInit(): void {
-    const date = typeof this.date === 'string' ? new Date(this.date) : new Date();
-    this.startDate = new Date(date);
-    this.datePicker = new FormControl(date);
-    this.datePicker.disable();
+  readonly datePicker = new FormControl<Date | null>(this._getDate(this._date));
+
+  private _getDate(date: string | Date): Date {
+    return typeof date === 'string' ? new Date(date) : new Date(date);
   }
 
   onDateChange(value: Moment): void {

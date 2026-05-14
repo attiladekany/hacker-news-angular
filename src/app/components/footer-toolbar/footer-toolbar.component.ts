@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,17 +9,17 @@ import { Store } from '@ngrx/store';
 import { selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
-  standalone: true,
   selector: 'app-footer-toolbar',
   templateUrl: './footer-toolbar.component.html',
   styleUrls: ['./footer-toolbar.component.scss'],
   imports: [CommonModule, RouterModule, DatePickerComponent, MatToolbarModule, MatIconModule, MatRippleModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterToolbarComponent {
-  private router = inject(Router);
-  private store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly store = inject(Store);
   date: string = new Date().toISOString().slice(0, 10);
-  small$ = this.store.select(selectIsMobile$);
+  readonly small$ = this.store.select(selectIsMobile$);
 
   onDateChanged(date: string): void {
     this.date = date;

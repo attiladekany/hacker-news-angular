@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { ComponentStore } from '@ngrx/component-store';
 import { EMPTY, Observable, catchError, exhaustMap, switchMap, tap, throwError } from 'rxjs';
 import { PagedItemResult } from 'src/app/models/paged-result.model';
 import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
@@ -34,21 +34,22 @@ export class ItemsStore extends ComponentStore<ItemsState<Item>> {
     super(INITIAL_STATE);
   }
 
-  readonly loadInitialPageData$ = this.effect<void>(
-    // The name of the source stream doesn't matter: `trigger$`, `source$` or `$` are good
-    // names. We encourage to choose one of these and use them consistently in your codebase.
-    (trigger$) =>
-      trigger$.pipe(
-        exhaustMap(() => {
-          const { date, page, size } = this.state();
-          return this._pagedItemsService.getPagedItems$(date, page, size).pipe(
-            tapResponse({
-              next: (pagedItems: PagedItemResult) => this._addEntities(pagedItems),
-              error: (e) => throwError(() => e),
-            }),
-          );
-        }),
-      ),
+  readonly loadInitialPageData$ = this.effect<void>((trigger$) =>
+    trigger$.pipe(
+      exhaustMap(() => {
+        const { date, page, size } = this.state();
+
+        return this._pagedItemsService.getPagedItems$(date, page, size).pipe(
+          tap((pagedItems: PagedItemResult) => {
+            this._addEntities(pagedItems);
+          }),
+          catchError((error) => {
+            console.error('loadInitialPageData$ failed', error);
+            return EMPTY;
+          }),
+        );
+      }),
+    ),
   );
 
   readonly getNextElements$ = this.effect((page$: Observable<number>) => {
