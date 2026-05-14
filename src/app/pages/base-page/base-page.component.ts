@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractBasePage } from './abstract-base-page.directive';
 import { LayoutComponent } from '../layout-components/layout/layout.component';
@@ -9,23 +9,20 @@ import { firstValueFrom } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 
 @Component({
-    selector: 'app-base-page',
-    templateUrl: './base-page.component.html',
-    imports: [LayoutComponent, CommonModule],
-    styleUrls: ['./base-page.component.scss'],
-    providers: [BaseItemsStore, ComponentStore]
+  selector: 'app-base-page',
+  templateUrl: './base-page.component.html',
+  imports: [LayoutComponent, CommonModule],
+  styleUrls: ['./base-page.component.scss'],
+  providers: [BaseItemsStore, ComponentStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasePageComponent extends AbstractBasePage {
-  override _store = inject(BaseItemsStore);
+  override readonly _store = inject(BaseItemsStore);
   readonly isLoading$ = this._store.select((state) => state.isLoading);
-  override state$ = this._store.select((state) => state);
+  override readonly state$ = this._store.select((state) => state);
 
-  override _itemService = inject(ItemService);
-  override _route = inject(ActivatedRoute);
-
-  constructor() {
-    super();
-  }
+  override readonly _itemService = inject(ItemService);
+  override readonly _route = inject(ActivatedRoute);
 
   async onNearEndScroll(): Promise<void> {
     const { page, isLoading, hasMore } = await firstValueFrom(this.state$);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { LocaleDatePipe } from 'src/app/pipes/local-date.pipe';
 import { Item } from 'src/typescript-angular-client-generated';
 import { CommonModule } from '@angular/common';
@@ -25,19 +25,28 @@ import { Store } from '@ngrx/store';
 import { selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
-    imports: [CommonModule, LocaleDatePipe, FontAwesomeModule],
-    selector: 'app-tile-element',
-    templateUrl: './tile-element.component.html',
-    styleUrls: ['./tile-element.component.scss']
+  imports: [CommonModule, LocaleDatePipe, FontAwesomeModule],
+  selector: 'app-tile-element',
+  templateUrl: './tile-element.component.html',
+  styleUrls: ['./tile-element.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TileElementComponent implements OnInit {
-  private _route = inject(ActivatedRoute);
-  private store = inject(Store);
-  titleIcon: IconDefinition = faFaceFrown;
-  navigator = window.navigator;
-  routePath: string | undefined;
+export class TileElementComponent {
+  private readonly _route = inject(ActivatedRoute);
+  private readonly store = inject(Store);
+  private readonly _titleIconMap = new Map<string, IconDefinition>([
+    ['top', faHeart],
+    ['ask', faCircleQuestion],
+    ['show', faEye],
+    ['job', faBriefcase],
+    [':date', faNewspaper],
+  ]);
 
-  small$ = this.store.select(selectIsMobile$);
+  readonly routePath = this._route.snapshot.routeConfig?.path;
+  readonly titleIcon = this._titleIconMap.get(this.routePath ?? '') ?? faFaceFrown;
+  readonly navigator = window.navigator;
+
+  readonly small$ = this.store.select(selectIsMobile$);
 
   @Input({ required: true }) item: Item = {} as Item;
 
@@ -51,32 +60,8 @@ export class TileElementComponent implements OnInit {
   faShareNodes = faShareNodes;
   faUpRightFromSquare = faUpRightFromSquare;
 
-  private _titleIconMap: Map<string, IconDefinition> = new Map<string, IconDefinition>([
-    ['top', faHeart],
-    ['ask', faCircleQuestion],
-    ['show', faEye],
-    ['job', faBriefcase],
-    [':date', faNewspaper],
-  ]);
-
-  ngOnInit(): void {
-    this.routePath = this._route.snapshot.routeConfig?.path;
-    this.titleIcon = this._titleIcon;
-  }
-
-  private get _titleIcon(): IconDefinition {
-    if (!this.routePath) {
-      console.warn('No route path');
-      return faFaceFrown;
-    }
-
-    return this._titleIconMap.get(this.routePath)!;
-  }
-
   onUrlClicked(url: string | undefined): void {
     if (!url) return;
-
-    // if (!confirm(`Are you sure to open this page?\n${url}`)) return;
 
     window.open(url);
   }

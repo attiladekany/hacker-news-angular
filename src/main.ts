@@ -1,11 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { RouterModule } from '@angular/router';
-import { importProvidersFrom, isDevMode } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { isDevMode } from '@angular/core';
 import { routes } from './app/app-routing.module';
 import { HackerNewsService } from './typescript-angular-client-generated';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStore } from '@ngrx/store';
 import { GLOBAL_FEATURE_KEY } from './app/+state/global.selector';
 import { globalReducer } from './app/+state/global.reducer';
@@ -15,25 +14,27 @@ import { metaReducers } from './app/+state/middleware/localstorage-sync.middlewa
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(RouterModule.forRoot(routes)),
+    provideRouter(routes),
     provideHttpClient(),
     HackerNewsService,
-    provideAnimations(),
     // https://dev.to/ngrx/using-ngrx-packages-with-standalone-angular-features-53d8
-    provideStore({ [GLOBAL_FEATURE_KEY]: globalReducer }, {
+    provideStore(
+      { [GLOBAL_FEATURE_KEY]: globalReducer },
+      {
         runtimeChecks: {
-            strictActionImmutability: true,
-            strictStateImmutability: true,
+          strictActionImmutability: true,
+          strictStateImmutability: true,
         },
-        metaReducers: metaReducers
-    }),
+        metaReducers: metaReducers,
+      },
+    ),
     provideStoreDevtools({
-        maxAge: 25,
-        logOnly: isDevMode(),
+      maxAge: 25,
+      logOnly: !isDevMode(),
     }),
     provideServiceWorker('ngsw-worker.js', {
-        enabled: !isDevMode(),
-        registrationStrategy: 'registerWhenStable:30000'
-    })
-],
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
+  ],
 });
