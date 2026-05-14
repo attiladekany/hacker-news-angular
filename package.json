@@ -2,8 +2,8 @@
   "name": "hacker-news-angular",
   "version": "0.0.0",
   "engines": {
-    "node": ">=18.16.0",
-    "npm": ">=8.1.2"
+    "node": ">=20.19.0",
+    "npm": ">=10.0.0"
   },
   "scripts": {
     "ng": "ng",
