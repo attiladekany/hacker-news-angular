@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { ComponentStore } from '@ngrx/component-store';
-import { EMPTY, Observable, catchError, exhaustMap, switchMap, tap, throwError } from 'rxjs';
+import { tap } from 'rxjs';
 import { PagedItemResult } from 'src/app/models/paged-result.model';
 import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
 import { PagedItemsService } from 'src/app/services/paged-items.service';
+import { PagedStore, PagedState } from 'src/app/pages/base-page/+state/paged-store.base';
 import { Item } from 'src/typescript-angular-client-generated';
 
 export const getInitialState = (date: string) => ({ ...INITIAL_STATE, date });
@@ -17,67 +17,29 @@ const INITIAL_STATE: ItemsState<Item> = {
   entities: [],
 };
 
-export interface ItemsState<T> {
+export interface ItemsState<T> extends PagedState<T> {
   date: string;
-  page: number;
-  size: number;
-  hasMore: boolean;
-  isLoading: boolean;
-  entities: T[];
 }
 
 @Injectable()
-export class ItemsStore extends ComponentStore<ItemsState<Item>> {
+export class ItemsStore extends PagedStore<Item, ItemsState<Item>> {
   private _pagedItemsService = inject(PagedItemsService);
 
   constructor() {
     super(INITIAL_STATE);
   }
 
-  readonly loadInitialPageData$ = this.effect<void>((trigger$) =>
-    trigger$.pipe(
-      exhaustMap(() => {
-        const { date, page, size } = this.state();
-
-        return this._pagedItemsService.getPagedItems$(date, page, size).pipe(
-          tap((pagedItems: PagedItemResult) => {
-            this._addEntities(pagedItems);
-          }),
-          catchError((error) => {
-            console.error('loadInitialPageData$ failed', error);
-            return EMPTY;
-          }),
-        );
-      }),
-    ),
-  );
-
-  readonly getNextElements$ = this.effect((page$: Observable<number>) => {
+  protected _loadPage(page: number) {
     const { date, size } = this.state();
-    return page$.pipe(
-      // 👇 Handle race condition with the proper choice of the flattening operator.
-      switchMap((page) =>
-        this._pagedItemsService.getPagedItems$(date, page, size).pipe(
-          //👇 Act on the result within inner pipe.
-          tap({
-            next: (pagedItems: PagedItemResult) => this._addEntities(pagedItems),
-            error: (e) => throwError(() => e),
-          }),
-          // 👇 Handle potential error within inner pipe.
-          catchError(() => EMPTY),
-        ),
+
+    return this._pagedItemsService.getPagedItems$(date, page, size).pipe(
+      tap((pagedItems: PagedItemResult) =>
+        this.updateState({
+          entities: pagedItems.entities,
+          page: pagedItems.page,
+          hasMore: pagedItems.hasMore,
+        }),
       ),
     );
-  });
-
-  readonly _addEntities = this.updater((state, pagedItemResult: PagedItemResult) => {
-    const { hasMore, page, entities } = pagedItemResult;
-    return {
-      ...state,
-      isLoading: false,
-      page,
-      hasMore,
-      entities: [...state.entities, ...entities],
-    };
-  });
+  }
 }

@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { ComponentStore } from '@ngrx/component-store';
-import { EMPTY, Observable, catchError, exhaustMap, switchMap, tap, throwError } from 'rxjs';
+import { EMPTY, tap } from 'rxjs';
 import { DEFAULT_PAGE_SIZE } from 'src/app/others/constants';
 import { ItemService } from 'src/app/services/item.service';
+import { PagedStore, PagedState } from 'src/app/pages/base-page/+state/paged-store.base';
 import { Item } from 'src/typescript-angular-client-generated';
 
 const INITIAL_STATE: BaseItemsState<Item> = {
@@ -14,109 +14,29 @@ const INITIAL_STATE: BaseItemsState<Item> = {
   entities: [],
 };
 
-export interface BaseItemsState<T> {
+export interface BaseItemsState<T> extends PagedState<T> {
   ids: number[];
-  page: number;
-  size: number;
-  hasMore: boolean;
-  isLoading: boolean;
-  entities: T[];
 }
 
 @Injectable()
-export class BaseItemsStore extends ComponentStore<BaseItemsState<Item>> {
+export class BaseItemsStore extends PagedStore<Item, BaseItemsState<Item>> {
   private _itemService = inject(ItemService);
 
   constructor() {
     super(INITIAL_STATE);
   }
 
-  readonly loadInitialPageData$ = this.effect<void>((trigger$) =>
-    trigger$.pipe(
-      exhaustMap(() => {
-        const { ids, size, page } = this.state();
-        const nextIds = ids.slice(0, size);
-        const hasMore = ids.length > size;
+  protected _loadPage(page: number) {
+    const { ids, size } = this.state();
+    const offset = (page - 1) * size;
+    const pagedIds = ids.slice(offset, offset + size);
+    const hasMore = offset + size < ids.length;
 
-        return this._itemService.getItemsByIds$(nextIds).pipe(
-          tap((entities: Item[]) => {
-            this._addEntities(entities);
-            this.patchState({ page, hasMore });
-          }),
-          catchError((error) => {
-            console.error('loadInitialPageData$ failed', error);
-            return EMPTY;
-          }),
-        );
-      }),
-    ),
-  );
-
-  readonly getNextElements$ = this.effect((page$: Observable<number>) => {
-    return page$.pipe(
-      // 👇 Handle race condition with the proper choice of the flattening operator.
-      switchMap((pageParam) => {
-        const { page, size } = this.state();
-        const allIds = this.state().ids;
-        const offset = (page - 1) * size;
-        const { ids, hasMore } = this.applyPaging(allIds, offset, size);
-        if (!hasMore) {
-          this.patchState({ hasMore, isLoading: false });
-          return EMPTY;
-        }
-
-        console.log('hasMore');
-
-        return this._itemService.getItemsByIds$(ids).pipe(
-          //👇 Act on the result within inner pipe.
-          tap({
-            next: (entities: Item[]) => {
-              this._updateState({ entities, page: pageParam, hasMore });
-            },
-            error: (e) => throwError(() => e),
-          }),
-          // 👇 Handle potential error within inner pipe.
-          catchError(() => EMPTY),
-        );
-      }),
-    );
-  });
-
-  readonly _addEntities = this.updater((state, entities: Item[]) => {
-    return {
-      ...state,
-      isLoading: false,
-      entities: [...state.entities, ...entities],
-    };
-  });
-
-  readonly _updateState = this.updater(
-    (
-      state,
-      pagedItemResult: {
-        entities: Item[];
-        page: number;
-        hasMore: boolean;
-      },
-    ) => {
-      const { hasMore, page, entities } = pagedItemResult;
-      return {
-        ...state,
-        page,
-        hasMore,
-        isLoading: false,
-        entities: [...state.entities, ...entities],
-      };
-    },
-  );
-
-  applyPaging(ids: number[], offset: number, size: number): { ids: number[]; hasMore: boolean } {
-    if (offset > ids.length) {
-      offset = ids.length - size;
+    if (!pagedIds.length) {
+      this.patchState({ hasMore: false, isLoading: false });
+      return EMPTY;
     }
 
-    const pagedIds = [...ids].splice(offset, size);
-
-    return { ids: pagedIds, hasMore: ids.indexOf(pagedIds[pagedIds.length - 1]) + 1 < ids.length };
+    return this._itemService.getItemsByIds$(pagedIds).pipe(tap((entities: Item[]) => this.updateState({ entities, page, hasMore })));
   }
 }
