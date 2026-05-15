@@ -10,10 +10,20 @@
     ></anonymous-svg>
 
     @if (item.title) {
-    <mat-card-title class="card-title">{{ item.title }}</mat-card-title>
+      <mat-card-title class="card-title">{{ item.title }}</mat-card-title>
     }
     @if (item.by) {
-    <mat-card-subtitle class="card-subtitle">{{ item.by }}</mat-card-subtitle>
+      <mat-card-subtitle class="card-subtitle">
+        <a
+          class="hn-user-link"
+          [href]="'https://news.ycombinator.com/user?id=' + item.by"
+          target="_blank"
+          rel="noopener noreferrer"
+          (click)="$event.stopPropagation()"
+        >
+          {{ item.by }}
+        </a>
+      </mat-card-subtitle>
     }
   </mat-card-header>
 
@@ -32,11 +42,11 @@
       </div>
     </div>
     @if (item.url) {
-    <a class="outer-link" [href]="item.url" (click)="$event.preventDefault()">
-      <span class="outer-link-text">
-        {{ item.url }}
-      </span>
-    </a>
+      <a class="outer-link" [href]="item.url" (click)="$event.preventDefault()">
+        <span class="outer-link-text">
+          {{ item.url }}
+        </span>
+      </a>
     }
   </mat-card-content>
 </mat-card>

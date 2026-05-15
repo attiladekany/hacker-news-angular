@@ -52,3 +52,21 @@ $linkColor: #7a7878;
     color: $pink;
   }
 }
+
+.hacker-card {
+  .card-subtitle {
+    .hn-user-link {
+      color: inherit;
+      text-decoration: none;
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .hn-user-link:hover {
+      color: $pink;
+      text-decoration: underline;
+      transform: translateY(-1px);
+    }
+  }
+}

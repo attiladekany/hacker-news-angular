@@ -36,7 +36,15 @@
   <div class="tile-content-container flex">
     <div class="user news-detail flex">
       <fa-icon class="icon" [icon]="faUser"></fa-icon>
-      <span>{{ item.by }}</span>
+      <a
+        class="hn-user-link"
+        [href]="'https://news.ycombinator.com/user?id=' + item.by"
+        target="_blank"
+        rel="noopener noreferrer"
+        (click)="$event.stopPropagation()"
+      >
+        {{ item.by }}
+      </a>
     </div>
 
     <div class="time news-detail flex">

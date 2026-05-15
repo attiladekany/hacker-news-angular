@@ -39,6 +39,23 @@ $lightPink: #ff95b9;
       margin-left: 5px;
       margin-right: 5px;
     }
+
+    .user {
+      .hn-user-link {
+        color: inherit;
+        text-decoration: none;
+        transition:
+          color 0.15s ease,
+          transform 0.15s ease;
+        cursor: pointer;
+      }
+
+      .hn-user-link:hover {
+        color: $lightPink;
+        text-decoration: underline;
+        transform: translateY(-1px);
+      }
+    }
   }
 
   .share-icon {
