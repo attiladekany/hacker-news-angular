@@ -107,6 +107,72 @@ $headerHeight: 56px;
   z-index: 1100;
 }
 
+.favorites-panel {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .favorites-list {
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+
+    ul {
+      margin: 0;
+      padding: 12px 16px 12px 24px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    .favorite-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    a {
+      display: block;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: $pink;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .remove-favorite-button {
+      border: none;
+      background: transparent;
+      color: $pink;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 0;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+
+    p {
+      margin: 0;
+      padding: 12px 16px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
 .tile-element {
   transition: 0.5s background-color;
 

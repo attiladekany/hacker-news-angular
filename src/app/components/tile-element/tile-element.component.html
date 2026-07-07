@@ -28,8 +28,18 @@
       </h1>
     }
   </div>
+  <div
+    class="favorite-icon action-icon"
+    [ngClass]="{ active: ((favoriteItemIds$ | async) ?? []).includes(item.id ?? -1) }"
+    (click)="onFavoriteClicked(item)"
+    (keyup.enter)="onFavoriteClicked(item)"
+    role="button"
+    tabindex="0"
+  >
+    <fa-icon class="icon" [icon]="faHeart"></fa-icon>
+  </div>
   @if (item.url) {
-    <div class="share-icon" (click)="onShareClicked(item)" (keyup.enter)="onShareClicked(item)" role="button" tabindex="0">
+    <div class="share-icon action-icon" (click)="onShareClicked(item)" (keyup.enter)="onShareClicked(item)" role="button" tabindex="0">
       <fa-icon class="icon" [icon]="faShareNodes"></fa-icon>
     </div>
   }
