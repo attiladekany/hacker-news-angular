@@ -11,4 +11,11 @@ describe('globalReducer', () => {
 
     expect(secondToggle.favoriteItemIds).toEqual([]);
   });
+
+  it('removes favorite item ids', () => {
+    const stateWithFavorite = globalReducer(initialState, GlobalActions.toggleFavoriteItem({ itemId: 42 }));
+    const stateWithoutFavorite = globalReducer(stateWithFavorite, GlobalActions.removeFavoriteItem({ itemId: 42 }));
+
+    expect(stateWithoutFavorite.favoriteItemIds).toEqual([]);
+  });
 });

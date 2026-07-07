@@ -11,12 +11,22 @@
     </mat-button-toggle-group>
 
     <div class="favorites-panel">
-      <h4>Favorite item IDs</h4>
+      <h4>Favorites</h4>
       <div class="favorites-list">
         @if ((favoriteItemIds$ | async)?.length) {
           <ul>
-            @for (itemId of favoriteItemIds$ | async; track itemId) {
-              <li>{{ itemId }}</li>
+            @for (favorite of getFavoriteLinks((favoriteItemIds$ | async) ?? []); track favorite.id) {
+              <li class="favorite-list-item">
+                <a [href]="favorite.href" target="_blank" rel="noopener noreferrer">{{ favorite.label }}</a>
+                <button
+                  type="button"
+                  class="remove-favorite-button"
+                  aria-label="Remove favorite"
+                  (click)="$event.preventDefault(); $event.stopPropagation(); onRemoveFavorite(favorite.id)"
+                >
+                  ×
+                </button>
+              </li>
             }
           </ul>
         } @else {
@@ -43,39 +53,35 @@
   <div class="drawer-sidenav-content">
     <div class="scrolling-wrapper" appScrollNearEnd (nearEnd)="nearEnd.next()">
       <div class="content" [style.width]="(small$ | async) === true ? 100 + '%' : 80 + '%'">
-        @if((layoutType$ | async) === LayoutType.Card) {
+        @if ((layoutType$ | async) === LayoutType.Card) {
           @if (entities.length > 0) {
-        <div class="grid-container">
-          @for (item of entities; track item.id) {
-          <!-- todo: review card height without wrapper -->
-          <app-card [item]="item"></app-card>
+            <div class="grid-container">
+              @for (item of entities; track item.id) {
+                <!-- todo: review card height without wrapper -->
+                <app-card [item]="item"></app-card>
+              }
+            </div>
           }
-        </div>
         }
-      }
-         @if((layoutType$ | async) === LayoutType.Grid) {
-
-        <mat-grid-list cols="1" rowHeight="130px" gutterSize="7px">
-          @for (item of entities; track item.id; let idx = $index, e = $even) {
-          <mat-grid-tile class="grid-tile"
-                        [colspan]="1"
-                        [rowspan]="1"
-                        [style.background]="'#404040f5'">
-            <app-tile-element [item]="item" class="tile-element"></app-tile-element>
-          </mat-grid-tile>
-          }
-        </mat-grid-list>
+        @if ((layoutType$ | async) === LayoutType.Grid) {
+          <mat-grid-list cols="1" rowHeight="130px" gutterSize="7px">
+            @for (item of entities; track item.id; let idx = $index, e = $even) {
+              <mat-grid-tile class="grid-tile" [colspan]="1" [rowspan]="1" [style.background]="'#404040f5'">
+                <app-tile-element [item]="item" class="tile-element"></app-tile-element>
+              </mat-grid-tile>
+            }
+          </mat-grid-list>
         }
 
         @if (isLoading) {
-        <div class="loading-wrapper">
-          <mat-spinner
-            class="loading-spinner"
-            diameter="{{ (small$ | async) === false ? 100 : 50 }}"
-            strokeWidth="{{ (small$ | async) === false ? 10 : 5 }}"
-            class="center"
-          ></mat-spinner>
-        </div>
+          <div class="loading-wrapper">
+            <mat-spinner
+              class="loading-spinner"
+              diameter="{{ (small$ | async) === false ? 100 : 50 }}"
+              strokeWidth="{{ (small$ | async) === false ? 10 : 5 }}"
+              class="center"
+            ></mat-spinner>
+          </div>
         }
       </div>
     </div>

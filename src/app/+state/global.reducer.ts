@@ -22,4 +22,8 @@ export const globalReducer = createReducer(
 
     return { ...state, favoriteItemIds };
   }),
+  on(GlobalActions.removeFavoriteItem, (state, { itemId }) => ({
+    ...state,
+    favoriteItemIds: state.favoriteItemIds.filter((favoriteId) => favoriteId !== itemId),
+  }))
 );

@@ -55,4 +55,24 @@ export class LayoutComponent {
   onLayoutTypeChanged(event: MatButtonToggleChange): void {
     this._store.dispatch(GlobalActions.setLayoutType({ layoutType: event.value }));
   }
+
+  onRemoveFavorite(itemId: number): void {
+    this._store.dispatch(GlobalActions.removeFavoriteItem({ itemId }));
+  }
+
+  getFavoriteLinks(favoriteItemIds: number[]): Array<{ id: number; label: string; href: string }> {
+    const entityMap = new Map(this.entities.map((item) => [item.id, item]));
+
+    return favoriteItemIds.map((itemId) => {
+      const item = entityMap.get(itemId);
+      const href = item?.url ?? `https://news.ycombinator.com/item?id=${itemId}`;
+      const label = item?.title?.trim() || `Item ${itemId}`;
+
+      return {
+        id: itemId,
+        label,
+        href,
+      };
+    });
+  }
 }

@@ -130,6 +130,41 @@ $headerHeight: 56px;
       margin-bottom: 6px;
     }
 
+    .favorite-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    a {
+      display: block;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: $pink;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .remove-favorite-button {
+      border: none;
+      background: transparent;
+      color: $pink;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 0;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+
     p {
       margin: 0;
       padding: 12px 16px;
