@@ -1,7 +1,8 @@
 export interface GlobalState {
   isMobile: boolean;
   isDrawerOpened: boolean;
-  layoutType: LayoutType
+  layoutType: LayoutType;
+  favoriteItemIds: number[];
 }
 
 export enum LayoutType {

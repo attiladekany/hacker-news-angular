@@ -10,6 +10,21 @@
       <mat-button-toggle value="grid">Grid</mat-button-toggle>
     </mat-button-toggle-group>
 
+    <div class="favorites-panel">
+      <h4>Favorite item IDs</h4>
+      <div class="favorites-list">
+        @if ((favoriteItemIds$ | async)?.length) {
+          <ul>
+            @for (itemId of favoriteItemIds$ | async; track itemId) {
+              <li>{{ itemId }}</li>
+            }
+          </ul>
+        } @else {
+          <p>No favorites yet.</p>
+        }
+      </div>
+    </div>
+
     <div class="drawer-footer">
       <div class="footer-wrapper">
         <div class="git-icon center-horizontal">

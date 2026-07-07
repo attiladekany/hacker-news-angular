@@ -8,5 +8,6 @@ export const GlobalActions = createActionGroup({
     'Toggle drawer': emptyProps(),
     'Set layout type': props<{ layoutType: LayoutType }>(),
     'Refresh initial page data': emptyProps(),
+    'Toggle favorite item': props<{ itemId: number }>(),
   },
 });

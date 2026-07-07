@@ -6,7 +6,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ScrollNearEndDirective } from 'src/app/directives/scroll-near-end.directive';
 import { Item } from 'src/typescript-angular-client-generated';
 import { Store } from '@ngrx/store';
-import { selectIsDrawerOpened$, selectIsMobile$, selectLayoutType$ } from 'src/app/+state/global.selector';
+import { selectFavoriteItemIds$, selectIsDrawerOpened$, selectIsMobile$, selectLayoutType$ } from 'src/app/+state/global.selector';
 import { HeaderToolbarComponent } from '../../../components/header-toolbar/header-toolbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,6 +46,7 @@ export class LayoutComponent {
   readonly small$ = this._store.select(selectIsMobile$);
   readonly isDrawerOpened$ = this._store.select(selectIsDrawerOpened$);
   readonly layoutType$ = this._store.select(selectLayoutType$);
+  readonly favoriteItemIds$ = this._store.select(selectFavoriteItemIds$);
 
   readonly LayoutType = LayoutType;
   readonly faUpRightFromSquare = faUpRightAndDownLeftFromCenter;

@@ -15,3 +15,7 @@ export const selectIsDrawerOpened$ = createSelector(state, (state) => {
 export const selectLayoutType$ = createSelector(state, (state) => {
   return state.layoutType;
 });
+
+export const selectFavoriteItemIds$ = createSelector(state, (state) => {
+  return state.favoriteItemIds;
+});

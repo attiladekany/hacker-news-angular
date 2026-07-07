@@ -107,6 +107,37 @@ $headerHeight: 56px;
   z-index: 1100;
 }
 
+.favorites-panel {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .favorites-list {
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+
+    ul {
+      margin: 0;
+      padding: 12px 16px 12px 24px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin: 0;
+      padding: 12px 16px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
 .tile-element {
   transition: 0.5s background-color;
 

@@ -22,7 +22,8 @@ import {
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectIsMobile$ } from 'src/app/+state/global.selector';
+import { GlobalActions } from 'src/app/+state/global.actions';
+import { selectFavoriteItemIds$, selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
   imports: [CommonModule, LocaleDatePipe, FontAwesomeModule],
@@ -47,6 +48,7 @@ export class TileElementComponent {
   readonly navigator = window.navigator;
 
   readonly small$ = this.store.select(selectIsMobile$);
+  readonly favoriteItemIds$ = this.store.select(selectFavoriteItemIds$);
 
   @Input({ required: true }) item: Item = {} as Item;
 
@@ -58,6 +60,7 @@ export class TileElementComponent {
   faNewspaper = faNewspaper;
   faGripLinesVertical = faGripLinesVertical;
   faShareNodes = faShareNodes;
+  faHeart = faHeart;
   faUpRightFromSquare = faUpRightFromSquare;
 
   onUrlClicked(url: string | undefined): void {
@@ -82,5 +85,13 @@ export class TileElementComponent {
       .share(shareData)
       .then(() => console.log(`Successfully shared`))
       .catch((err) => console.log(`Error: ${err}`));
+  }
+
+  onFavoriteClicked(item: Item): void {
+    if (typeof item.id !== 'number') {
+      return;
+    }
+
+    this.store.dispatch(GlobalActions.toggleFavoriteItem({ itemId: item.id }));
   }
 }
