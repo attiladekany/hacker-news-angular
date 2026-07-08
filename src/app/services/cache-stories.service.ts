@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class CacheStoriesService {
   private _topStoriesIds$ = new BehaviorSubject<number[]>([]);
   private _askStoriesIds$ = new BehaviorSubject<number[]>([]);
