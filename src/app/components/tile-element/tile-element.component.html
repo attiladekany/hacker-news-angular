@@ -7,39 +7,39 @@
     @if (small$ | async) {
       <h3
         class="tile-title"
-        (click)="onUrlClicked(item.url)"
-        (keyup.enter)="onUrlClicked(item.url)"
-        [ngClass]="{ 'has-link': !!item.url }"
+        (click)="onUrlClicked(item().url)"
+        (keyup.enter)="onUrlClicked(item().url)"
+        [ngClass]="{ 'has-link': !!item().url }"
         role="button"
         tabindex="0"
       >
-        {{ item.title }}
+        {{ item().title }}
       </h3>
     } @else {
       <h1
         class="tile-title"
-        (click)="onUrlClicked(item.url)"
-        (keyup.enter)="onUrlClicked(item.url)"
-        [ngClass]="{ 'has-link': !!item.url }"
+        (click)="onUrlClicked(item().url)"
+        (keyup.enter)="onUrlClicked(item().url)"
+        [ngClass]="{ 'has-link': !!item().url }"
         role="button"
         tabindex="0"
       >
-        {{ item.title }}
+        {{ item().title }}
       </h1>
     }
   </div>
   <div
     class="favorite-icon action-icon"
-    [ngClass]="{ active: ((favoriteItemIds$ | async) ?? []).includes(item.id ?? -1) }"
-    (click)="onFavoriteClicked(item)"
-    (keyup.enter)="onFavoriteClicked(item)"
+    [ngClass]="{ active: ((favoriteItemIds$ | async) ?? []).includes(item().id ?? -1), 'favorite-icon-right': !item().url }"
+    (click)="onFavoriteClicked(item())"
+    (keyup.enter)="onFavoriteClicked(item())"
     role="button"
     tabindex="0"
   >
     <fa-icon class="icon" [icon]="faHeart"></fa-icon>
   </div>
-  @if (item.url) {
-    <div class="share-icon action-icon" (click)="onShareClicked(item)" (keyup.enter)="onShareClicked(item)" role="button" tabindex="0">
+  @if (item().url) {
+    <div class="share-icon action-icon" (click)="onShareClicked(item())" (keyup.enter)="onShareClicked(item())" role="button" tabindex="0">
       <fa-icon class="icon" [icon]="faShareNodes"></fa-icon>
     </div>
   }
@@ -48,44 +48,44 @@
       <fa-icon class="icon" [icon]="faUser"></fa-icon>
       <a
         class="hn-user-link"
-        [href]="'https://news.ycombinator.com/user?id=' + item.by"
+        [href]="'https://news.ycombinator.com/user?id=' + item().by"
         target="_blank"
         rel="noopener noreferrer"
         (click)="$event.stopPropagation()"
       >
-        {{ item.by }}
+        {{ item().by }}
       </a>
     </div>
 
     <div class="time news-detail flex">
       <fa-icon class="icon" [icon]="faClock"></fa-icon>
-      <span>{{ item.time | localeDate }}</span>
+      <span>{{ item().time | localeDate }}</span>
     </div>
 
     <div class="type news-detail flex">
       <fa-icon class="icon" [icon]="faNewspaper"></fa-icon>
-      <span>{{ item.type }}</span>
+      <span>{{ item().type }}</span>
     </div>
 
-    @if ((item.kids || []).length > 0) {
+    @if ((item().kids || []).length > 0) {
       <div class="comment news-detail flex">
         <fa-icon class="icon" [icon]="faComment"></fa-icon>
-        <span>{{ item.kids?.length }}</span>
+        <span>{{ item().kids?.length }}</span>
       </div>
     }
 
     <div class="score news-detail flex">
       <fa-icon class="icon" [icon]="faStar"></fa-icon>
-      <span>{{ 'score: ' + item.score }}</span>
+      <span>{{ 'score: ' + item().score }}</span>
     </div>
 
-    @if (item.text) {
+    @if (item().text) {
       <div class="text news-detail flex">
         <fa-icon class="icon" [icon]="faBook"></fa-icon>
         <!-- <div [innerHTML]="item.text"></div> -->
       </div>
     }
-    @if (item.url) {
+    @if (item().url) {
       <div class="has-link-icon">
         <fa-icon class="icon" [icon]="faUpRightFromSquare"></fa-icon>
       </div>

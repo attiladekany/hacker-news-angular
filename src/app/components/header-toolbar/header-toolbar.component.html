@@ -1,7 +1,7 @@
 <mat-toolbar class="header-toolbar">
   <div class="center">
-    <a class="title-link bebas-neue-regular" (click)="onTitleClicked()" role="button" tabindex="0" [class.disabled]="isLoading">
-      <span class="title">{{ title }}</span>
+    <a class="title-link bebas-neue-regular" (click)="onTitleClicked()" role="button" tabindex="0" [class.disabled]="isLoading()">
+      <span class="title">{{ title() }}</span>
     </a>
   </div>
   <div class="right">

@@ -9,6 +9,7 @@ import { firstValueFrom } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 
 @Component({
+  standalone: true,
   selector: 'app-base-page',
   templateUrl: './base-page.component.html',
   imports: [LayoutComponent, CommonModule],

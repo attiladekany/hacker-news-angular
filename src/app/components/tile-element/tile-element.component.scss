@@ -74,6 +74,14 @@ $lightPink: #ff95b9;
       color: $lightPink;
     }
 
+    @media (max-width: 768px) {
+      padding: 8px;
+
+      .icon {
+        font-size: 20px;
+      }
+    }
+
     &:hover {
       cursor: pointer;
       transition: 0.5s background-color;
@@ -88,6 +96,11 @@ $lightPink: #ff95b9;
   .favorite-icon {
     right: 55px;
 
+    @media (max-width: 768px) {
+      right: 0;
+      top: 44px;
+    }
+
     &.active {
       background-color: #ff5d93;
 
@@ -99,5 +112,17 @@ $lightPink: #ff95b9;
 
   .share-icon {
     right: 0;
+
+    @media (max-width: 768px) {
+      top: 0;
+    }
+  }
+
+  .favorite-icon-right {
+    right: 0;
+
+    @media (max-width: 768px) {
+      top: 44px;
+    }
   }
 }

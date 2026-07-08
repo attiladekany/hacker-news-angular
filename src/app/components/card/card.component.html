@@ -1,4 +1,4 @@
-<mat-card class="hacker-card" (click)="onUrlClicked(item.url)">
+<mat-card class="hacker-card" (click)="onUrlClicked(item().url)">
   <mat-card-header>
     <anonymous-svg
       class="header-image"
@@ -9,19 +9,19 @@
       [borderRadius]="50"
     ></anonymous-svg>
 
-    @if (item.title) {
-      <mat-card-title class="card-title">{{ item.title }}</mat-card-title>
+    @if (item().title) {
+      <mat-card-title class="card-title">{{ item().title }}</mat-card-title>
     }
-    @if (item.by) {
+    @if (item().by) {
       <mat-card-subtitle class="card-subtitle">
         <a
           class="hn-user-link"
-          [href]="'https://news.ycombinator.com/user?id=' + item.by"
+          [href]="'https://news.ycombinator.com/user?id=' + item().by"
           target="_blank"
           rel="noopener noreferrer"
           (click)="$event.stopPropagation()"
         >
-          {{ item.by }}
+          {{ item().by }}
         </a>
       </mat-card-subtitle>
     }
@@ -30,21 +30,21 @@
   <mat-card-content class="mat-card-content">
     <div class="flex-container">
       <div class="card-text-content">
-        @if (item.type) {
-          <div>type: {{ item.type }}</div>
+        @if (item().type) {
+          <div>type: {{ item().type }}</div>
         }
-        @if (item.score) {
-          <div>score: {{ item.score }}</div>
+        @if (item().score) {
+          <div>score: {{ item().score }}</div>
         }
-        @if (item.time) {
-          <div>Date: {{ item.time | localeDate }}</div>
+        @if (item().time) {
+          <div>Date: {{ item().time | localeDate }}</div>
         }
       </div>
     </div>
-    @if (item.url) {
-      <a class="outer-link" [href]="item.url" (click)="$event.preventDefault()">
+    @if (item().url) {
+      <a class="outer-link" [href]="item().url" (click)="$event.preventDefault()">
         <span class="outer-link-text">
-          {{ item.url }}
+          {{ item().url }}
         </span>
       </a>
     }

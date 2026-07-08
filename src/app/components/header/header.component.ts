@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AnonymousComponent } from '../anonymous/anonymous.component';
 
 @Component({
+  standalone: true,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
@@ -10,5 +11,5 @@ import { AnonymousComponent } from '../anonymous/anonymous.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  @Input({ required: true }) title = '';
+  readonly title = input.required<string>();
 }

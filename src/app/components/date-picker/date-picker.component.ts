@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, ViewEncapsulation, effect, input } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatMomentDateModule, provideMomentDateAdapter } from '@angular/material
 import { Moment } from 'moment';
 
 @Component({
+  standalone: true,
   selector: 'app-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
@@ -32,13 +33,14 @@ import { Moment } from 'moment';
 export class DatePickerComponent {
   private _date: string | Date = new Date();
 
-  @Input() set date(value: string | Date) {
-    this._date = value;
-    this.datePicker.setValue(this._getDate(value));
-  }
+  readonly date = input<string | Date>(new Date());
 
-  get date(): string | Date {
-    return this._date;
+  constructor() {
+    effect(() => {
+      const value = this.date();
+      this._date = value;
+      this.datePicker.setValue(this._getDate(value));
+    });
   }
 
   @Output() dateChanged = new EventEmitter<string>();
