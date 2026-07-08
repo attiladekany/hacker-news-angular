@@ -1,10 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Service, inject } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { HackerNewsService, Item } from 'src/typescript-angular-client-generated';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class ItemService {
   private _hackerNewsService = inject(HackerNewsService);
 

@@ -1,12 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { Service, inject } from '@angular/core';
 import { Observable, concatMap, from, of, tap } from 'rxjs';
 import { IItemService } from '../interfaces/item.service.interface';
 import { CacheStoriesService } from './cache-stories.service';
 import { getItemIds$ } from '../resolvers/helpers';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AskStoriesService implements IItemService {
   private _cacheStoriesService = inject(CacheStoriesService);
 
@@ -19,7 +17,7 @@ export class AskStoriesService implements IItemService {
       }),
       tap((ids: number[]) => {
         this._cacheStoriesService.setAskStories(ids);
-      })
+      }),
     );
   }
 }

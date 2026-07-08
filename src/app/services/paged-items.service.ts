@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { PagedItemResult } from '../models/paged-result.model';
 import { URLPaths } from '../others/constants';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class PagedItemsService {
   getPagedItems$(date: string, page: number, size: number): Observable<PagedItemResult> {
     const url = URLPaths.getPagedItemsUrl(date, page, size);
