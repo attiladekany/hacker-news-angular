@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { LocaleDatePipe } from 'src/app/pipes/local-date.pipe';
 import { Item } from 'src/typescript-angular-client-generated';
 import { CommonModule } from '@angular/common';
@@ -26,6 +26,7 @@ import { GlobalActions } from 'src/app/+state/global.actions';
 import { selectFavoriteItemIds$, selectIsMobile$ } from 'src/app/+state/global.selector';
 
 @Component({
+  standalone: true,
   imports: [CommonModule, LocaleDatePipe, FontAwesomeModule],
   selector: 'app-tile-element',
   templateUrl: './tile-element.component.html',
@@ -50,7 +51,7 @@ export class TileElementComponent {
   readonly small$ = this.store.select(selectIsMobile$);
   readonly favoriteItemIds$ = this.store.select(selectFavoriteItemIds$);
 
-  @Input({ required: true }) item: Item = {} as Item;
+  readonly item = input.required<Item>();
 
   faComment = faComment;
   faClock = faClock;

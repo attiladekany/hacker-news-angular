@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from 'src/app/components/card/card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,6 +18,7 @@ import { TileElementComponent } from 'src/app/components/tile-element/tile-eleme
 import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
+  standalone: true,
   selector: 'app-layout',
   imports: [
     CommonModule,
@@ -37,9 +38,9 @@ import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icon
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {
-  @Input({ required: true }) title = '';
-  @Input({ required: true }) entities: Item[] = [];
-  @Input({ required: true }) isLoading = true;
+  readonly title = input.required<string>();
+  readonly entities = input.required<Item[]>();
+  readonly isLoading = input.required<boolean>();
   @Output() readonly nearEnd = new EventEmitter<void>();
 
   private readonly _store = inject(Store);
@@ -61,7 +62,7 @@ export class LayoutComponent {
   }
 
   getFavoriteLinks(favoriteItemIds: number[]): Array<{ id: number; label: string; href: string }> {
-    const entityMap = new Map(this.entities.map((item) => [item.id, item]));
+    const entityMap = new Map(this.entities().map((item) => [item.id, item]));
 
     return favoriteItemIds.map((itemId) => {
       const item = entityMap.get(itemId);

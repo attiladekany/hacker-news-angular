@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { DataRefreshService } from 'src/app/services/data-refresh.service';
 
 @Component({
+  standalone: true,
   selector: 'app-header-toolbar',
   templateUrl: './header-toolbar.component.html',
   styleUrls: ['./header-toolbar.component.scss'],
@@ -17,15 +18,15 @@ export class HeaderToolbarComponent {
   private readonly store = inject(Store);
   private readonly refreshService = inject(DataRefreshService);
 
-  @Input({ required: true }) title = '';
-  @Input() isLoading = false;
+  readonly title = input.required<string>();
+  readonly isLoading = input(false);
 
   onHamburgerClicked(): void {
     this.store.dispatch(GlobalActions.toggleDrawer());
   }
 
   onTitleClicked(): void {
-    if (!this.isLoading) {
+    if (!this.isLoading()) {
       this.refreshService.triggerRefresh();
     }
   }
